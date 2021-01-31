@@ -274,7 +274,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-01-31 13:51:47 / 修改时间：17:13:39" itemprop="dateCreated datePublished" datetime="2021-01-31T13:51:47+08:00">2021-01-31</time>
+              <time title="创建时间：2021-01-31 13:51:47 / 修改时间：17:33:28" itemprop="dateCreated datePublished" datetime="2021-01-31T13:51:47+08:00">2021-01-31</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -321,65 +321,14 @@ Hexo拥有丰富的主题和插件，可定制性强，相比简书、掘金等�
 <p>这里的repo是仓库的clone地址，ssh格式而不是https，因为这里没有配置你的git账户信息。</p>
 <p>然后执行hexo g -d命令即可发布文章到GitHub上，每次更新文章或者配置后，都可以用这个任务发布，然后在你的博客网站上立刻就能看到最新效果。</p>
 <p>如果发布太频繁，可能对SEO不友好，或者容易产生浏览器缓存，如果发现网站没有更新不妨试试清理缓存或者强制刷新。</p>
-<h2 id="配置SSH"><a href="#配置SSH" class="headerlink" title="配置SSH"></a>配置SSH</h2><p>为了方便Git部署插件，我们选择ssh的仓库地址，而不是https的仓库url。<br>如果你曾经clone和push过自己GitHub名下的仓库，已经保存了GitHub账户信息也可以直接使用https的clone url，可以跳过这个步骤。</p>
-<p>打开上面创建的仓库，点击clone or download按钮查看clone地址。<br><img src="https://jfcai2008.github.io/images/clone.png" alt="avatar"><br>如果你们配置过ssh，就会上面上面以”<a href="mailto:&#103;&#x69;&#x74;&#x40;&#x67;&#x69;&#116;&#104;&#x75;&#98;&#46;&#99;&#111;&#x6d;">&#103;&#x69;&#x74;&#x40;&#x67;&#x69;&#116;&#104;&#x75;&#98;&#46;&#99;&#111;&#x6d;</a>“开头的url，直接使用这个url即可。<br>否则会出现个选项配置ssh，其实就是这个路径<a target="_blank" rel="noopener" href="https://github.com/settings/ssh/new">https://github.com/settings/ssh/new</a><br><img src="https://jfcai2008.github.io/images/ssh.png" alt="avatar"><br>到电脑的用户目录下，查看隐藏文件夹.ssh/id_rsa.pub文件，将里面的内容拷贝到上面的Key输入框内，Title随便写。<br>如果找不到.ssh文件夹或者文件夹下不存在id_rsa.pub文件，则是还未创建ssh公钥，关于git ssh可以参考这篇文章 服务器上的 Git - 生成 SSH 公钥</p>
-<p>添加回到仓库中就能看到ssh的clone地址，填到hexo git插件配置文件中。</p>
-<h2 id="安装NexT主题"><a href="#安装NexT主题" class="headerlink" title="安装NexT主题"></a>安装NexT主题</h2><p>官网地址：<a target="_blank" rel="noopener" href="https://hexo.io/themes/">https://hexo.io/themes/</a><br>默认的landspape我感觉不好看，好在Hexo有丰富的主题可选，这里我选了比较热门的NexT主题。<br>就是你们看到的现在这个样子，使用的是NexT主题的Pisces模式，长这个样子。<br><img src="https://jfcai2008.github.io/images/home.png" alt="avatar"></p>
-<h2 id="下载主题"><a href="#下载主题" class="headerlink" title="下载主题"></a>下载主题</h2><p>Hexo的主题安装其实就是把主题包放在在themes文件夹下，每个主题一个文件夹。<br>所以，安装NexT主题，你可以直接把<a target="_blank" rel="noopener" href="https://github.com/theme-next/hexo-theme-next%E4%B8%8B%E8%BD%BD%E4%B8%8B%E6%9D%A5%E6%94%BE%E5%9C%A8themes%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%8B%E3%80%82">https://github.com/theme-next/hexo-theme-next下载下来放在themes文件夹下。</a><br>这里选择另外一种更好的方式，将NexT仓库使用Git clone到themes文件夹下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;theme-next&#x2F;hexo-theme-next themes&#x2F;next</span><br></pre></td></tr></table></figure>
-<p>这样，当Next更新之后，只要使用git pull即可完成更新。</p>
-<h2 id="启用主题"><a href="#启用主题" class="headerlink" title="启用主题"></a>启用主题</h2><p>打开根目录下的_config.yml配置文件，找到theme字段，改为theme: next。<br>重启博客服务，现在主题已经切换到NexT上了。<br>NexT内置了Muse、Mist、Pisces、Gemini四种风格，可以在Next的配置文件/themes/next/_config.xml中找到下面的配置，注释其中一个验证一下效果。修改NexT配置可不需要重启即可看到效果。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#scheme: Muse  </span><br><span class="line">#scheme: Mist  </span><br><span class="line">scheme: Pisces  </span><br><span class="line">#scheme: Gemini  </span><br></pre></td></tr></table></figure>
-<p>下面介绍Hexo可能会定制的地方。后面Hexo的配置文件均是指根目录下的_config.yml，NexT的配置文件均是指/themes/next/_config.xml文件。</p>
-<h2 id="配置网站基本信息"><a href="#配置网站基本信息" class="headerlink" title="配置网站基本信息"></a>配置网站基本信息</h2><p>在Hexo的配置文件中，找到下面的site模块进行修改。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#Site  </span><br><span class="line">title: Bob Huang&#39;s Blog  </span><br><span class="line">subtitle: 很酷的Android工程师  </span><br><span class="line">description: 没事瞎写  </span><br><span class="line">keywords: Android,Kotlin,React Native,Spring MVC,NodeJs  </span><br><span class="line">author: Bob Huang  </span><br><span class="line">language: zh-CN  </span><br><span class="line">timezone: asia&#x2F;shanghai  </span><br></pre></td></tr></table></figure>
-<p>因为要部署到GitHub上，这里记得把时区手动指定东八区。</p>
-<h2 id="配置头像"><a href="#配置头像" class="headerlink" title="配置头像"></a>配置头像</h2><p>在NexT的配置文件，找到下面的代码，把头像放到images文件夹下，通过url字段配置；rounded字段可以配置圆角。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#Sidebar Avatar  </span><br><span class="line">avatar:  </span><br><span class="line">  url: &#x2F;images&#x2F;avatar.png  </span><br><span class="line">  rounded: true  </span><br></pre></td></tr></table></figure>
-<h2 id="配置菜单"><a href="#配置菜单" class="headerlink" title="配置菜单"></a>配置菜单</h2><p>默认的菜单只有”首页”和”归档”，我们可以在NexT的配置文件中找到menu模块。<br>添加菜单</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">menu:  </span><br><span class="line">  home: &#x2F; || home  </span><br><span class="line">  #about: &#x2F;about&#x2F; || user  </span><br><span class="line">  tags: &#x2F;tags&#x2F; || tags  </span><br><span class="line">  categories: &#x2F;categories&#x2F; || th  </span><br><span class="line">  archives: &#x2F;archives&#x2F; || archive  </span><br><span class="line">  #schedule: &#x2F;schedule&#x2F; || calendar  </span><br><span class="line">  about: &#x2F;about&#x2F; || user  </span><br><span class="line">  #sitemap: &#x2F;sitemap.xml || sitemap  </span><br><span class="line">  #commonweal: &#x2F;404&#x2F; || heartbeat  </span><br></pre></td></tr></table></figure>
-<p>可以把预置的一些菜单去除注释，比如常用的分类和标签；也可以自己添加其他菜单，比如这里加的关于菜单。<br>菜单的格式如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name: path || icon</span><br></pre></td></tr></table></figure>
-<p>前面是菜单的名称，中间的对应的链接路径，||后面是图标的名字，可以去fontawesome.com上找合适的图标或者看看博客内其他地方在用的图标。</p>
-<p>可能你会发现标签和分类两个菜单跳转会404，那是因为还没有创建标签和菜单。</p>
-<h2 id="新建标签"><a href="#新建标签" class="headerlink" title="新建标签"></a>新建标签</h2><p>执行命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page &quot;tags&quot;</span><br></pre></td></tr></table></figure>
-<p>会生成一个source/tags/index.md文件，将其改为:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 标签</span><br><span class="line">date: 2019-05-26 17:20:25</span><br><span class="line">type: &quot;tags&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<h2 id="新建分类"><a href="#新建分类" class="headerlink" title="新建分类"></a>新建分类</h2><p>和标签类似，执行命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page &quot;categories&quot;</span><br></pre></td></tr></table></figure>
-<p>然后source/categories/index.md文件改成</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: 文章分类</span><br><span class="line">date: 2019-05-26 17:07:32</span><br><span class="line">type: &quot;categories&quot;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>现在标签和菜单不会404了。<br>配置GitHub等社交信息</p>
-<p>GitHub有两处地方可以配置，其一是博客右上角的<br>GitHub<br>这是在NexT配置文件的这部分进行修改：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">github_banner:</span><br><span class="line">  enable: true</span><br><span class="line">  permalink: https:&#x2F;&#x2F;github.com&#x2F;huangmb</span><br><span class="line">  title: Follow me on GitHub</span><br></pre></td></tr></table></figure>
-<p>另一个地方是左下角社交展示区域，可以添加GitHub以及邮箱等其他信息。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">social:</span><br><span class="line">  GitHub: https:&#x2F;&#x2F;github.com&#x2F;huangmb || github</span><br><span class="line">  E-Mail: mailto:286931810@qq.com || envelope</span><br><span class="line">  #Weibo: https:&#x2F;&#x2F;weibo.com&#x2F;yourname || weibo</span><br><span class="line">  #Google: https:&#x2F;&#x2F;plus.google.com&#x2F;yourname || google</span><br><span class="line">  #Twitter: https:&#x2F;&#x2F;twitter.com&#x2F;yourname || twitter</span><br></pre></td></tr></table></figure>
-<h2 id="搜索功能"><a href="#搜索功能" class="headerlink" title="搜索功能"></a>搜索功能</h2><p>虽然是静态博客网站，Hexo也集成了一个本地搜索功能。<br>使用下面的命令安装搜索模块：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-searchdb --save</span><br></pre></td></tr></table></figure>
-<p>然后在Next的配置文件找到local_search的配置项，将enable改为true即可，你会看到菜单中多了一项搜索。</p>
-<h2 id="开始创作"><a href="#开始创作" class="headerlink" title="开始创作"></a>开始创作</h2><p>完事具备，可以开始写作了。在Hexo中，文章是以Markdown方式保存的，所有文章都保存在source/_posts下</p>
-<h2 id="新建文章"><a href="#新建文章" class="headerlink" title="新建文章"></a>新建文章</h2><p>使用命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new post &quot;标题&quot;</span><br></pre></td></tr></table></figure>
-<p>即可在_posts文件夹下生成对应的Markdown文件。<br>你可以手动新建Markdown文件，并在文件头部加上博客的声明（称为Front Matter），比如现在这篇文章：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hexo博客搭建记录</span><br><span class="line">date: 2019-05-26 16:59:36</span><br><span class="line">categories:</span><br><span class="line">- hexo</span><br><span class="line">tags:</span><br><span class="line">- hexo</span><br><span class="line">- 记录</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<h3 id="使用分类和标签"><a href="#使用分类和标签" class="headerlink" title="使用分类和标签"></a>使用分类和标签</h3><p>正如上面的文件头声明，分类和标签仅需要加上categories和tags字段，标签可以声明多个，而分类声明多个是多级分类的意思，而不是多个分类。</p>
-<h3 id="创建时间和更新时间"><a href="#创建时间和更新时间" class="headerlink" title="创建时间和更新时间"></a>创建时间和更新时间</h3><p>在文件头声明date和updated</p>
-<p>更多可以使用的属性见front-matter</p>
-<h3 id="版权声明"><a href="#版权声明" class="headerlink" title="版权声明"></a>版权声明</h3><p>在NexT的配置文件中，找到creative_commons模块，将enable改为true即可。</p>
-<h3 id="使用评论"><a href="#使用评论" class="headerlink" title="使用评论"></a>使用评论</h3><p>本站使用的是Valine作为评论系统，好处是可以匿名评论，支持表情和Markdown。<br>具体安装参考这篇文章。</p>
-<h3 id="使用赞赏"><a href="#使用赞赏" class="headerlink" title="使用赞赏"></a>使用赞赏</h3><p>在NexT的配置文件中找到reward_settings模块，将enable改为true，并在下面的reward中的支付宝和微信注释去掉，并改成你的支付宝和微信收款码图片文件名。<br>将微信和支付宝的收款码放在source/images文件夹下。</p>
-<h3 id="数据统计"><a href="#数据统计" class="headerlink" title="数据统计"></a>数据统计</h3><p>字数统计</p>
-<p>在NexT的配置文件中，找到symbols_count_time，将各属性改为true即可。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">symbols_count_time:</span><br><span class="line">  separated_meta: true</span><br><span class="line">  item_text_post: true</span><br><span class="line">  item_text_total: false</span><br><span class="line">  awl: 4</span><br><span class="line">  wpm: 275</span><br><span class="line">  suffix: mins.</span><br></pre></td></tr></table></figure>
-<h3 id="访客量和访问量"><a href="#访客量和访问量" class="headerlink" title="访客量和访问量"></a>访客量和访问量</h3><p>可以使用busuanzi统计，在NexT的配置文件中找到busuanzi_count并将enable改为true，则在网页底部会有访客统计数据。</p>
-<p>如果需要修改显示的样式，比如加上标题，可以修改Next下的layout/_third_party/analytics/busuanzi-counter.swig模版。</p>
-<h3 id="百度统计"><a href="#百度统计" class="headerlink" title="百度统计"></a>百度统计</h3><p>前往官网添加一个网站，然后在代码获取下将hm.js后面的xxxx就是你的id拷贝下来。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var hm &#x3D; document.createElement(&quot;script&quot;);</span><br><span class="line"> hm.src &#x3D; &quot;https:&#x2F;&#x2F;hm.baidu.com&#x2F;hm.js?xxxx&quot;;</span><br><span class="line"> var s &#x3D; document.getElementsByTagName(&quot;script&quot;)[0];</span><br></pre></td></tr></table></figure>
-<p>在NexT的配置文件中找到baidu_analytics，将注释去掉，值为刚才拷贝的ID。</p>
-<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g # 生成</span><br><span class="line">hexo s # 启动服务</span><br></pre></td></tr></table></figure>
-<p>执行以上命令之后，hexo就会在public文件夹生成相关html文件，这些文件将来都是要提交到github去的。<br>如果出现一些莫名其妙的问题，可以先执行hexo clean来清理一下public的内容，然后再来重新生成和发布。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/01/31/Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
