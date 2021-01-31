@@ -1,20 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hello World</title>
-    <url>/2021/01/31/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>Hexo博客搭建记录</title>
     <url>/2021/01/31/Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/</url>
     <content><![CDATA[<p>抄自：<a href="https://huangmb.github.io/2019/05/26/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/">https://huangmb.github.io/2019/05/26/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/</a></p>
@@ -42,7 +28,7 @@ Hexo拥有丰富的主题和插件，可定制性强，相比简书、掘金等�
 <p>然后执行hexo g -d命令即可发布文章到GitHub上，每次更新文章或者配置后，都可以用这个任务发布，然后在你的博客网站上立刻就能看到最新效果。</p>
 <p>如果发布太频繁，可能对SEO不友好，或者容易产生浏览器缓存，如果发现网站没有更新不妨试试清理缓存或者强制刷新。</p>
 <h2 id="配置SSH"><a href="#配置SSH" class="headerlink" title="配置SSH"></a>配置SSH</h2><p>为了方便Git部署插件，我们选择ssh的仓库地址，而不是https的仓库url。<br>如果你曾经clone和push过自己GitHub名下的仓库，已经保存了GitHub账户信息也可以直接使用https的clone url，可以跳过这个步骤。</p>
-<p>打开上面创建的仓库，点击clone or download按钮查看clone地址。<br><img src="https://jfcai2008.github.io/images/clone.png" alt="avatar"><br>如果你们配置过ssh，就会上面上面以”<a href="mailto:&#103;&#105;&#116;&#64;&#103;&#x69;&#x74;&#x68;&#117;&#98;&#46;&#99;&#111;&#109;">&#103;&#105;&#116;&#64;&#103;&#x69;&#x74;&#x68;&#117;&#98;&#46;&#99;&#111;&#109;</a>“开头的url，直接使用这个url即可。<br>否则会出现个选项配置ssh，其实就是这个路径<a href="https://github.com/settings/ssh/new">https://github.com/settings/ssh/new</a><br><img src="https://jfcai2008.github.io/images/ssh.png" alt="avatar"><br>到电脑的用户目录下，查看隐藏文件夹.ssh/id_rsa.pub文件，将里面的内容拷贝到上面的Key输入框内，Title随便写。<br>如果找不到.ssh文件夹或者文件夹下不存在id_rsa.pub文件，则是还未创建ssh公钥，关于git ssh可以参考这篇文章 服务器上的 Git - 生成 SSH 公钥</p>
+<p>打开上面创建的仓库，点击clone or download按钮查看clone地址。<br><img src="https://jfcai2008.github.io/images/clone.png" alt="avatar"><br>如果你们配置过ssh，就会上面上面以”<a href="mailto:&#103;&#x69;&#x74;&#x40;&#x67;&#x69;&#116;&#104;&#x75;&#98;&#46;&#99;&#111;&#x6d;">&#103;&#x69;&#x74;&#x40;&#x67;&#x69;&#116;&#104;&#x75;&#98;&#46;&#99;&#111;&#x6d;</a>“开头的url，直接使用这个url即可。<br>否则会出现个选项配置ssh，其实就是这个路径<a href="https://github.com/settings/ssh/new">https://github.com/settings/ssh/new</a><br><img src="https://jfcai2008.github.io/images/ssh.png" alt="avatar"><br>到电脑的用户目录下，查看隐藏文件夹.ssh/id_rsa.pub文件，将里面的内容拷贝到上面的Key输入框内，Title随便写。<br>如果找不到.ssh文件夹或者文件夹下不存在id_rsa.pub文件，则是还未创建ssh公钥，关于git ssh可以参考这篇文章 服务器上的 Git - 生成 SSH 公钥</p>
 <p>添加回到仓库中就能看到ssh的clone地址，填到hexo git插件配置文件中。</p>
 <h2 id="安装NexT主题"><a href="#安装NexT主题" class="headerlink" title="安装NexT主题"></a>安装NexT主题</h2><p>官网地址：<a href="https://hexo.io/themes/">https://hexo.io/themes/</a><br>默认的landspape我感觉不好看，好在Hexo有丰富的主题可选，这里我选了比较热门的NexT主题。<br>就是你们看到的现在这个样子，使用的是NexT主题的Pisces模式，长这个样子。<br><img src="https://jfcai2008.github.io/images/home.png" alt="avatar"></p>
 <h2 id="下载主题"><a href="#下载主题" class="headerlink" title="下载主题"></a>下载主题</h2><p>Hexo的主题安装其实就是把主题包放在在themes文件夹下，每个主题一个文件夹。<br>所以，安装NexT主题，你可以直接把<a href="https://github.com/theme-next/hexo-theme-next%E4%B8%8B%E8%BD%BD%E4%B8%8B%E6%9D%A5%E6%94%BE%E5%9C%A8themes%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%8B%E3%80%82">https://github.com/theme-next/hexo-theme-next下载下来放在themes文件夹下。</a><br>这里选择另外一种更好的方式，将NexT仓库使用Git clone到themes文件夹下：</p>
@@ -98,7 +84,7 @@ Hexo拥有丰富的主题和插件，可定制性强，相比简书、掘金等�
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var hm &#x3D; document.createElement(&quot;script&quot;);</span><br><span class="line"> hm.src &#x3D; &quot;https:&#x2F;&#x2F;hm.baidu.com&#x2F;hm.js?xxxx&quot;;</span><br><span class="line"> var s &#x3D; document.getElementsByTagName(&quot;script&quot;)[0];</span><br></pre></td></tr></table></figure>
 <p>在NexT的配置文件中找到baidu_analytics，将注释去掉，值为刚才拷贝的ID。</p>
 <h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo g # 生成</span><br><span class="line">hexo s # 启动服务</span><br></pre></td></tr></table></figure>
-<p>执行以上命令之后，hexo就会在public文件夹生成相关html文件，这些文件将来都是要提交到github去的</p>
+<p>执行以上命令之后，hexo就会在public文件夹生成相关html文件，这些文件将来都是要提交到github去的。<br>如果出现一些莫名其妙的问题，可以先执行hexo clean来清理一下public的内容，然后再来重新生成和发布。</p>
 ]]></content>
       <categories>
         <category>hexo</category>
@@ -106,6 +92,20 @@ Hexo拥有丰富的主题和插件，可定制性强，相比简书、掘金等�
       <tags>
         <tag>hexo</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2021/01/31/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
   </entry>
   <entry>
     <title>pictures</title>
