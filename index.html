@@ -192,6 +192,79 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/31/%E5%87%A0%E4%B8%AAjavascript%E5%87%BD%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="CaiJianFeng">
+      <meta itemprop="description" content="给记忆留点空间">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JianFengCai Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/31/%E5%87%A0%E4%B8%AAjavascript%E5%87%BD%E6%95%B0/" class="post-title-link" itemprop="url">几个javascript函数</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-01-31 18:12:47 / 修改时间：18:24:30" itemprop="dateCreated datePublished" datetime="2021-01-31T18:12:47+08:00">2021-01-31</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="对象比较"><a href="#对象比较" class="headerlink" title="对象比较"></a>对象比较</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line">* @description 比较对象属性，升降序，附加属性</span><br><span class="line">* @param property</span><br><span class="line">* @param asc</span><br><span class="line">* @param extra</span><br><span class="line">* @returns &#123;function(*, *): (number|number)&#125;</span><br><span class="line">*&#x2F;</span><br><span class="line">function compareByKey(property, asc, extra) &#123;</span><br><span class="line">    return function (a, b) &#123;</span><br><span class="line">        var value1 &#x3D; a[property]</span><br><span class="line">        var value2 &#x3D; b[property]</span><br><span class="line">        if (extra &amp;&amp; extra !&#x3D;&#x3D; &#39;&#39;) &#123;</span><br><span class="line">            if (!a[extra]) return -1</span><br><span class="line">            if (!b[extra]) return -1</span><br><span class="line">        &#125;</span><br><span class="line">        return asc ? (value1 &gt; value2 ? 1 : (value1 &#x3D;&#x3D;&#x3D; value2 ? 0 : -1)) : (value1 &gt; value2 ? -1 : (value1 &#x3D;&#x3D;&#x3D; value2 ? 0 : 1))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="去除字符串的所有空格"><a href="#去除字符串的所有空格" class="headerlink" title="去除字符串的所有空格"></a>去除字符串的所有空格</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function removeEmpty(str) &#123;</span><br><span class="line">    return str.replace(&#x2F;\s&#x2F;g, &#39;&#39;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="最大最小函数"><a href="#最大最小函数" class="headerlink" title="最大最小函数"></a>最大最小函数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line">* @description 通过键值查找最大值，返回最大值</span><br><span class="line">* @param arr 对象列表</span><br><span class="line">* @param key 属性</span><br><span class="line">* @returns &#123;*&#125;</span><br><span class="line">* @constructor</span><br><span class="line">*&#x2F;</span><br><span class="line">function MaxByKey(arr, key) &#123;</span><br><span class="line">    let val &#x3D; arr.reduce((num1, num2) &#x3D;&gt; &#123;</span><br><span class="line">            return num1[key] &gt; num2[key] ? num1 : num2</span><br><span class="line">        &#125;</span><br><span class="line">    )</span><br><span class="line">    return val[key]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line">* @description 通过键值查找最小值，返回最小值</span><br><span class="line">* @param arr 对象列表</span><br><span class="line">* @param key 属性</span><br><span class="line">* @returns &#123;*&#125;</span><br><span class="line">* @constructor</span><br><span class="line">*&#x2F;</span><br><span class="line">function MinByKey(arr, key) &#123;</span><br><span class="line">    let val &#x3D; arr.reduce((num1, num2) &#x3D;&gt; &#123;</span><br><span class="line">            return num1[key] &lt; num2[key] ? num1 : num2</span><br><span class="line">        &#125;</span><br><span class="line">    )</span><br><span class="line">    return val[key]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line">* @description 通过键值查找最大值，返回最大值对应对象</span><br><span class="line">* @param arr 列表对象</span><br><span class="line">* @param key 属性</span><br><span class="line">* @returns &#123;*&#125;</span><br><span class="line">* @constructor</span><br><span class="line">*&#x2F;</span><br><span class="line">function MaxByKey2(arr, key) &#123;</span><br><span class="line">    let val &#x3D; arr.reduce((num1, num2) &#x3D;&gt; &#123;</span><br><span class="line">            return num1[key] &gt; num2[key] ? num1 : num2</span><br><span class="line">        &#125;</span><br><span class="line">    )</span><br><span class="line">    return val</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;**</span><br><span class="line">* @description 通过键值查找最小值，返回最小值对应对象</span><br><span class="line">* @param arr 列表对象</span><br><span class="line">* @param key 属性</span><br><span class="line">* @returns &#123;*&#125;</span><br><span class="line">* @constructor</span><br><span class="line">*&#x2F;</span><br><span class="line">function MinByKey2(arr, key) &#123;</span><br><span class="line">    let val &#x3D; arr.reduce((num1, num2) &#x3D;&gt; &#123;</span><br><span class="line">            return num1[key] &lt; num2[key] ? num1 : num2</span><br><span class="line">        &#125;</span><br><span class="line">    )</span><br><span class="line">    return val</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Distinct"><a href="#Distinct" class="headerlink" title="Distinct"></a>Distinct</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line">* @description 根据键值求distinct</span><br><span class="line">* @param arr</span><br><span class="line">* @param key</span><br><span class="line">* @returns &#123;Map&lt;any, any&gt;&#125;</span><br><span class="line">*&#x2F;</span><br><span class="line">function distinctByKey(arr, key) &#123;</span><br><span class="line">    let results &#x3D; new Map()</span><br><span class="line">    arr.forEach(dd &#x3D;&gt; &#123;</span><br><span class="line">        let val &#x3D; results.get(dd[key])</span><br><span class="line">        if (val) &#123;</span><br><span class="line">            &#x2F;&#x2F;val.push(dd)</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            results.set(dd[key], dd)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    return results</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="求和"><a href="#求和" class="headerlink" title="求和"></a>求和</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line">* @description 根据键值来求和</span><br><span class="line">* @param arr</span><br><span class="line">* @param key</span><br><span class="line">* @returns &#123;*&#125;</span><br><span class="line">* @constructor</span><br><span class="line">*&#x2F;</span><br><span class="line">function SumByKey(arr, key) &#123;</span><br><span class="line">    return arr.reduce((acc, val) &#x3D;&gt; acc + parseFloat(val[key]), 0)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line">* @description 根据键值来分组</span><br><span class="line">* @param arr</span><br><span class="line">* @param key</span><br><span class="line">* @returns &#123;Map&lt;any, any&gt;&#125;</span><br><span class="line">*&#x2F;</span><br><span class="line">function groupByKey(arr, key) &#123;</span><br><span class="line">    let results &#x3D; new Map()</span><br><span class="line">    arr.forEach(dd &#x3D;&gt; &#123;</span><br><span class="line">        let val &#x3D; results.get(dd[key])</span><br><span class="line">        if (val) &#123;</span><br><span class="line">            val.push(dd)</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            results.set(dd[key], [dd])</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    return results</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line">* @description obj是个数组，标明arr数组对象的哪些属性来分组</span><br><span class="line">* @param arr</span><br><span class="line">* @param obj</span><br><span class="line">* @returns &#123;Map&lt;any, any&gt;&#125;</span><br><span class="line">*&#x2F;</span><br><span class="line">function groupByObj(arr, obj) &#123;</span><br><span class="line">    let results &#x3D; new Map()</span><br><span class="line">    arr.forEach(dd &#x3D;&gt; &#123;</span><br><span class="line">        let keys &#x3D; []</span><br><span class="line">        let ko &#x3D; &#123;&#125;</span><br><span class="line">        obj.forEach(o &#x3D;&gt; &#123;</span><br><span class="line">            keys.push(dd[o])</span><br><span class="line">            ko[o] &#x3D; dd[o]</span><br><span class="line">        &#125;)</span><br><span class="line">        dd[&#39;__key&#39;] &#x3D; ko</span><br><span class="line">        let key &#x3D; keys.join(&#39;&amp;&#39;)</span><br><span class="line">        let val &#x3D; results.get(key)</span><br><span class="line">        if (val) &#123;</span><br><span class="line">            val.push(dd)</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            results.set(key, [dd])</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    return results</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Trim"><a href="#Trim" class="headerlink" title="Trim"></a>Trim</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 去左空格;</span><br><span class="line">function ltrim(s) &#123;</span><br><span class="line">    return s.replace(&#x2F;(^\s*)&#x2F;g, &#39;&#39;)</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; 去右空格;</span><br><span class="line">function rtrim(s) &#123;</span><br><span class="line">    return s.replace(&#x2F;(\s*$)&#x2F;g, &#39;&#39;)</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; 去左右空格;</span><br><span class="line">function trim(s) &#123;</span><br><span class="line">    return s.replace(&#x2F;(^\s*)|(\s*$)&#x2F;g, &#39;&#39;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function removeChinese(s) &#123;</span><br><span class="line">    var reg &#x3D; &#x2F;[\u4e00-\u9fa5]&#x2F;g;</span><br><span class="line">    return s.replace(reg, &quot;&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/31/Angular%E9%80%9A%E7%94%A8%E5%BC%80%E5%8F%91%E6%A8%A1%E6%9D%BF/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -587,20 +660,20 @@ Hexo拥有丰富的主题和插件，可定制性强，相比简书、掘金等�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
