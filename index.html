@@ -192,6 +192,76 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/31/angular%E7%9A%84ngStyle/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="CaiJianFeng">
+      <meta itemprop="description" content="给记忆留点空间">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JianFengCai Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/31/angular%E7%9A%84ngStyle/" class="post-title-link" itemprop="url">angular的ngStyle</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-01-31 18:27:39 / 修改时间：18:33:11" itemprop="dateCreated datePublished" datetime="2021-01-31T18:27:39+08:00">2021-01-31</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Angular/" itemprop="url" rel="index"><span itemprop="name">Angular</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Angular中ngStyle的函数使用"><a href="#Angular中ngStyle的函数使用" class="headerlink" title="Angular中ngStyle的函数使用"></a>Angular中ngStyle的函数使用</h2><p>html文件中，如下使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;tr [ngStyle]&#x3D;&quot;HoldStyle(item)&quot; &gt;</span><br></pre></td></tr></table></figure>
+<p>ts文件中，可写如下函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">HoldStyle(item) &#123;</span><br><span class="line">  let bkcolor &#x3D; &#39;#FFFFFF&#39;</span><br><span class="line">  let status&#x3D;parseInt(item[&#39;flag&#39;])</span><br><span class="line">  if(status&#x3D;&#x3D;2)&#123;</span><br><span class="line">    bkcolor&#x3D;&#39;#9900ff&#39;</span><br><span class="line">  &#125;</span><br><span class="line">  else if(status&#x3D;&#x3D;1)&#123;</span><br><span class="line">    bkcolor&#x3D;&#39;#BFE350&#39; </span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return &#123;</span><br><span class="line">    background: bkcolor</span><br><span class="line">  &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/31/%E5%87%A0%E4%B8%AAjavascript%E5%87%BD%E6%95%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -660,7 +730,7 @@ Hexo拥有丰富的主题和插件，可定制性强，相比简书、掘金等�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
