@@ -39,6 +39,7 @@
 <p>最后将此app.menu.ts内容并入到根路由中  </p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import &#123; MainRoutes &#125; from &#39;.&#x2F;app.menu&#39;  </span><br><span class="line"></span><br><span class="line">const routes: Routes &#x3D; [  </span><br><span class="line">  ...MainRoutes  </span><br><span class="line"> ];  </span><br></pre></td></tr></table></figure>
 <p>如果有样式文件加入，直接在styles.scss中import即可。<br>发现，我的知识库中用到了组件NzTabsModule<br>则必须在knowleges.module.ts中imports,在app.module.ts中imports无效。  </p>
+<a id="more"></a>
 <h4 id="登录界面"><a href="#登录界面" class="headerlink" title="登录界面"></a>登录界面</h4><p><img src="https://jfcai2008.github.io/images/imgs/login.png" alt="avatar">  </p>
 <h4 id="布局1"><a href="#布局1" class="headerlink" title="布局1"></a>布局1</h4><p><img src="https://jfcai2008.github.io/images/imgs/home1.png" alt="avatar">  </p>
 <h4 id="布局2"><a href="#布局2" class="headerlink" title="布局2"></a>布局2</h4><p><img src="https://jfcai2008.github.io/images/imgs/home2.png" alt="avatar">  </p>
