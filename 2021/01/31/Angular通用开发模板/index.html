@@ -20,19 +20,19 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="AngularGeneral想做一个比较通用的angular应用模板？为自己的以后项目做一个框架。暂时有如下特性： 一、多路由应用中各个不同的业务功能可以有自己不同的布局模板。    登录，错误处理有着自己的路由，自己的布局。   例子中的基金有自己的路由，自己的布局模板。   例子中的足球有自己的路由和自己的布局模板。等等。  二、实现了懒加载基于业务功能的子路由实现了懒加载懒加载的路由也能动态">
+  <meta name="description" content="AngularGeneral想做一个比较通用的angular应用模板？为自己的以后项目做一个框架。暂时有如下特性：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Angular通用开发模板">
 <meta property="og:url" content="http://example.com/2021/01/31/Angular%E9%80%9A%E7%94%A8%E5%BC%80%E5%8F%91%E6%A8%A1%E6%9D%BF/index.html">
 <meta property="og:site_name" content="JianFengCai Blog">
-<meta property="og:description" content="AngularGeneral想做一个比较通用的angular应用模板？为自己的以后项目做一个框架。暂时有如下特性： 一、多路由应用中各个不同的业务功能可以有自己不同的布局模板。    登录，错误处理有着自己的路由，自己的布局。   例子中的基金有自己的路由，自己的布局模板。   例子中的足球有自己的路由和自己的布局模板。等等。  二、实现了懒加载基于业务功能的子路由实现了懒加载懒加载的路由也能动态">
+<meta property="og:description" content="AngularGeneral想做一个比较通用的angular应用模板？为自己的以后项目做一个框架。暂时有如下特性：">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://jfcai2008.github.io/images/imgs/login.png">
 <meta property="og:image" content="https://jfcai2008.github.io/images/imgs/home1.png">
 <meta property="og:image" content="https://jfcai2008.github.io/images/imgs/home2.png">
 <meta property="og:image" content="https://jfcai2008.github.io/images/imgs/home3.png">
 <meta property="article:published_time" content="2021-01-31T09:39:22.000Z">
-<meta property="article:modified_time" content="2021-02-04T00:25:19.818Z">
+<meta property="article:modified_time" content="2021-02-04T00:57:28.763Z">
 <meta property="article:author" content="CaiJianFeng">
 <meta property="article:tag" content="Angular">
 <meta name="twitter:card" content="summary">
@@ -218,6 +218,10 @@
 
         <div class="post-meta">
           
+            <i class="fa fa-thumb-tack"></i>
+            <font color=7D26CD>置顶</font>
+            <span class="post-meta-divider">|</span>
+          
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
@@ -231,7 +235,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-02-04 08:25:19" itemprop="dateModified" datetime="2021-02-04T08:25:19+08:00">2021-02-04</time>
+                <time title="修改时间：2021-02-04 08:57:28" itemprop="dateModified" datetime="2021-02-04T08:57:28+08:00">2021-02-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -282,22 +286,23 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="AngularGeneral"><a href="#AngularGeneral" class="headerlink" title="AngularGeneral"></a>AngularGeneral</h1><p>想做一个比较通用的angular应用模板？<br>为自己的以后项目做一个框架。<br>暂时有如下特性：</p>
-<h2 id="一、多路由"><a href="#一、多路由" class="headerlink" title="一、多路由"></a>一、多路由</h2><p>应用中各个不同的业务功能可以有自己不同的布局模板。  </p>
+        <h2 id="AngularGeneral"><a href="#AngularGeneral" class="headerlink" title="AngularGeneral"></a>AngularGeneral</h2><p>想做一个比较通用的angular应用模板？为自己的以后项目做一个框架。暂时有如下特性：</p>
+<a id="more"></a>
+
+<h3 id="一、多路由"><a href="#一、多路由" class="headerlink" title="一、多路由"></a>一、多路由</h3><p>应用中各个不同的业务功能可以有自己不同的布局模板。  </p>
 <ol>
 <li>登录，错误处理有着自己的路由，自己的布局。  </li>
 <li>例子中的基金有自己的路由，自己的布局模板。  </li>
 <li>例子中的足球有自己的路由和自己的布局模板。<br>等等。</li>
 </ol>
-<h2 id="二、实现了懒加载"><a href="#二、实现了懒加载" class="headerlink" title="二、实现了懒加载"></a>二、实现了懒加载</h2><p>基于业务功能的子路由实现了懒加载<br>懒加载的路由也能动态加入到菜单中。（见后面的实现方法）  </p>
-<a id="more"></a>
-<h2 id="三、基于业务功能创建模块"><a href="#三、基于业务功能创建模块" class="headerlink" title="三、基于业务功能创建模块"></a>三、基于业务功能创建模块</h2><p>假如我们的项目中包括订单，用户，商品，足球，基金<br>基于业务功能创建模块，  </p>
+<h3 id="二、实现了懒加载"><a href="#二、实现了懒加载" class="headerlink" title="二、实现了懒加载"></a>二、实现了懒加载</h3><p>基于业务功能的子路由实现了懒加载<br>懒加载的路由也能动态加入到菜单中。（见后面的实现方法）  </p>
+<h3 id="三、基于业务功能创建模块"><a href="#三、基于业务功能创建模块" class="headerlink" title="三、基于业务功能创建模块"></a>三、基于业务功能创建模块</h3><p>假如我们的项目中包括订单，用户，商品，足球，基金<br>基于业务功能创建模块，  </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ng g m soccer --routing  </span><br><span class="line">ng g m fund --routing  </span><br><span class="line">ng g m user --routing  </span><br><span class="line">ng g m order --routing  </span><br></pre></td></tr></table></figure>
 <p>–routing //表示创建的模块带路由，用于懒加载  </p>
 <p>创建结束之后<br>我们在app目录下就可以发现如下目录<br>soccer<br>user<br>order<br>fund<br>…<br>等目录<br>现在假设我的足球模块中包括页面联赛，球队，分析等页面,我们可以如下创建页面组件  </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ng g c soccer&#x2F;leagues  </span><br><span class="line">ng g c soccer&#x2F;teams  </span><br><span class="line">ng g c soccer&#x2F;analysis  </span><br></pre></td></tr></table></figure>
 <p>创建结束之后<br>我们在soccer目录下就可以发现如下目录<br>leagues<br>teams<br>analysis<br>…<br>等目录，每个目录都包括该页面所需要的一系列文件。  </p>
-<h2 id="四、多级路由生成"><a href="#四、多级路由生成" class="headerlink" title="四、多级路由生成"></a>四、多级路由生成</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng g c soccerLayout --module&#x3D;app.module  </span><br></pre></td></tr></table></figure>
+<h3 id="四、多级路由生成"><a href="#四、多级路由生成" class="headerlink" title="四、多级路由生成"></a>四、多级路由生成</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng g c soccerLayout --module&#x3D;app.module  </span><br></pre></td></tr></table></figure>
 <p>如上生成基于业务功能应用的布局组件。<br>注意，所有的布局组件都应加入到app.module.ts模块中。  </p>
 <p>修改根下的app.component.ts仅保留</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;router-outlet&gt;&lt;&#x2F;router-outlet&gt;</span><br></pre></td></tr></table></figure>
@@ -309,22 +314,22 @@
 <p>而路由中的如下部分  </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;  </span><br><span class="line">    path: &#39;soccer&#39;,  </span><br><span class="line">    component:LayoutsoccerComponent,  </span><br><span class="line">    loadChildren: () &#x3D;&gt; import(&#39;.&#x2F;soccer&#x2F;soccer.module&#39;).then(m &#x3D;&gt; m.SoccerModule),  </span><br><span class="line">    data: &#123;  </span><br><span class="line">        breadcrumb: &#39;足球&#39;,  </span><br><span class="line">        visible: true,  </span><br><span class="line">        menus: SoccerRoutes  </span><br><span class="line">    &#125;,  </span><br><span class="line">    canActivate: [AuthGuard]  </span><br><span class="line">&#125;,  </span><br></pre></td></tr></table></figure>
 <p>将使用LayoutsoccerComponent组件作为布局组件。  </p>
-<h2 id="五、合作开发备注"><a href="#五、合作开发备注" class="headerlink" title="五、合作开发备注"></a>五、合作开发备注</h2><ol>
+<h3 id="五、合作开发备注"><a href="#五、合作开发备注" class="headerlink" title="五、合作开发备注"></a>五、合作开发备注</h3><ol>
 <li>每成员可基于【三、基于业务功能创建模块】创建自己的模块和页面和组件。  </li>
 <li>将该业务功能模块中路由文件中的（已完成路由数组内容提取出来）生成一个***.menu.ts文件。  \<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#123;  </span><br><span class="line">    path: &#39;tables&#39;,  </span><br><span class="line">    component: TablesComponent,  </span><br><span class="line">    data: &#123;  </span><br><span class="line">        breadcrumb: &#39;台帐管理&#39;,  </span><br><span class="line">        visible: true  </span><br><span class="line">    &#125;,  </span><br><span class="line">    &#x2F;&#x2F; canActivate: [AuthGuard]  </span><br><span class="line">&#125;,  </span><br><span class="line">&#123;  </span><br><span class="line">    path: &#39;laws&#39;,  </span><br><span class="line">    component: LawsComponent,  </span><br><span class="line">    data: &#123;  </span><br><span class="line">        breadcrumb: &#39;法律法规&#39;,  </span><br><span class="line">        visible: true  </span><br><span class="line">    &#125;,  </span><br><span class="line">    &#x2F;&#x2F; canActivate: [AuthGuard]  </span><br><span class="line">&#125;,  </span><br></pre></td></tr></table></figure></li>
 <li>将**<em>.menu.ts引入到**</em>.routing.ts文件中，并并入到routes变量，完成本模块的路由文件修改。  </li>
 </ol>
-<h2 id="六、路由合并"><a href="#六、路由合并" class="headerlink" title="六、路由合并"></a>六、路由合并</h2><p>新建一个根下的app.menu.ts文件。<br>完成总菜单文件，其中可根据业务功能并入子菜单文件。如果业务功能子菜单要采用不同的<br>模板，请在此处指定。如  </p>
+<h3 id="六、路由合并"><a href="#六、路由合并" class="headerlink" title="六、路由合并"></a>六、路由合并</h3><p>新建一个根下的app.menu.ts文件。<br>完成总菜单文件，其中可根据业务功能并入子菜单文件。如果业务功能子菜单要采用不同的<br>模板，请在此处指定。如  </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">import &#123; LayoutComponent &#125; from &#39;.&#x2F;pages&#x2F;layout&#x2F;layout.component&#39;;  </span><br><span class="line">import &#123; LayoutsoccerComponent &#125; from &#39;.&#x2F;pages&#x2F;layoutsoccer&#x2F;layoutsoccer.component&#39;;  </span><br><span class="line">  </span><br><span class="line">...  </span><br><span class="line">    &#123;  </span><br><span class="line">        path: &#39;fund&#39;,  </span><br><span class="line">        component:LayoutComponent,  </span><br><span class="line">        loadChildren: () &#x3D;&gt; import(&#39;.&#x2F;fund&#x2F;fund.module&#39;).then(m &#x3D;&gt; m.FundModule),  </span><br><span class="line">        data: &#123;  </span><br><span class="line">            breadcrumb: &#39;基金&#39;,  </span><br><span class="line">            visible: true,  </span><br><span class="line">            menus: FundRoutes  </span><br><span class="line">        &#125;,  </span><br><span class="line">        canActivate: [AuthGuard]  </span><br><span class="line">    &#125;,  </span><br><span class="line">    &#123;  </span><br><span class="line">        path: &#39;soccer&#39;,  </span><br><span class="line">        component:LayoutsoccerComponent,  </span><br><span class="line">        loadChildren: () &#x3D;&gt; import(&#39;.&#x2F;soccer&#x2F;soccer.module&#39;).then(m &#x3D;&gt; m.SoccerModule),  </span><br><span class="line">        data: &#123;  </span><br><span class="line">            breadcrumb: &#39;足球&#39;,  </span><br><span class="line">            visible: true,  </span><br><span class="line">            menus: SoccerRoutes  </span><br><span class="line">        &#125;,  </span><br><span class="line">        canActivate: [AuthGuard]  </span><br><span class="line">    &#125;,  </span><br><span class="line">    ...  </span><br></pre></td></tr></table></figure>
 <p>最后将此app.menu.ts内容并入到根路由中  </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import &#123; MainRoutes &#125; from &#39;.&#x2F;app.menu&#39;  </span><br><span class="line"></span><br><span class="line">const routes: Routes &#x3D; [  </span><br><span class="line">  ...MainRoutes  </span><br><span class="line"> ];  </span><br></pre></td></tr></table></figure>
 <p>如果有样式文件加入，直接在styles.scss中import即可。<br>发现，我的知识库中用到了组件NzTabsModule<br>则必须在knowleges.module.ts中imports,在app.module.ts中imports无效。  </p>
 <!--more-->
-<h4 id="登录界面"><a href="#登录界面" class="headerlink" title="登录界面"></a>登录界面</h4><p><img src="https://jfcai2008.github.io/images/imgs/login.png" alt="avatar">  </p>
-<h4 id="布局1"><a href="#布局1" class="headerlink" title="布局1"></a>布局1</h4><p><img src="https://jfcai2008.github.io/images/imgs/home1.png" alt="avatar">  </p>
-<h4 id="布局2"><a href="#布局2" class="headerlink" title="布局2"></a>布局2</h4><p><img src="https://jfcai2008.github.io/images/imgs/home2.png" alt="avatar">  </p>
-<h4 id="布局3"><a href="#布局3" class="headerlink" title="布局3"></a>布局3</h4><p><img src="https://jfcai2008.github.io/images/imgs/home3.png" alt="avatar"></p>
-<h2 id="七、路由守卫"><a href="#七、路由守卫" class="headerlink" title="七、路由守卫"></a>七、路由守卫</h2><p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/huangenai/p/12191832.html">https://www.cnblogs.com/huangenai/p/12191832.html</a>  </p>
+<h6 id="登录界面"><a href="#登录界面" class="headerlink" title="登录界面"></a>登录界面</h6><p><img src="https://jfcai2008.github.io/images/imgs/login.png" alt="avatar">  </p>
+<h6 id="布局1"><a href="#布局1" class="headerlink" title="布局1"></a>布局1</h6><p><img src="https://jfcai2008.github.io/images/imgs/home1.png" alt="avatar">  </p>
+<h6 id="布局2"><a href="#布局2" class="headerlink" title="布局2"></a>布局2</h6><p><img src="https://jfcai2008.github.io/images/imgs/home2.png" alt="avatar">  </p>
+<h6 id="布局3"><a href="#布局3" class="headerlink" title="布局3"></a>布局3</h6><p><img src="https://jfcai2008.github.io/images/imgs/home3.png" alt="avatar"></p>
+<h3 id="七、路由守卫"><a href="#七、路由守卫" class="headerlink" title="七、路由守卫"></a>七、路由守卫</h3><p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/huangenai/p/12191832.html">https://www.cnblogs.com/huangenai/p/12191832.html</a>  </p>
 <p>代码地址：<a target="_blank" rel="noopener" href="https://github.com/jfcai2008/angular-general">https://github.com/jfcai2008/angular-general</a></p>
 
     </div>
@@ -332,6 +337,26 @@
     
     
     
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wx_reward.png" alt="CaiJianFeng 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay_reward.png" alt="CaiJianFeng 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
 
       <footer class="post-footer">
           <div class="post-tags">
@@ -410,7 +435,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#AngularGeneral"><span class="nav-number">1.</span> <span class="nav-text">AngularGeneral</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%A4%9A%E8%B7%AF%E7%94%B1"><span class="nav-number">1.1.</span> <span class="nav-text">一、多路由</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%AE%9E%E7%8E%B0%E4%BA%86%E6%87%92%E5%8A%A0%E8%BD%BD"><span class="nav-number">1.2.</span> <span class="nav-text">二、实现了懒加载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%9F%BA%E4%BA%8E%E4%B8%9A%E5%8A%A1%E5%8A%9F%E8%83%BD%E5%88%9B%E5%BB%BA%E6%A8%A1%E5%9D%97"><span class="nav-number">1.3.</span> <span class="nav-text">三、基于业务功能创建模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%A4%9A%E7%BA%A7%E8%B7%AF%E7%94%B1%E7%94%9F%E6%88%90"><span class="nav-number">1.4.</span> <span class="nav-text">四、多级路由生成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E5%90%88%E4%BD%9C%E5%BC%80%E5%8F%91%E5%A4%87%E6%B3%A8"><span class="nav-number">1.5.</span> <span class="nav-text">五、合作开发备注</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E8%B7%AF%E7%94%B1%E5%90%88%E5%B9%B6"><span class="nav-number">1.6.</span> <span class="nav-text">六、路由合并</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%99%BB%E5%BD%95%E7%95%8C%E9%9D%A2"><span class="nav-number">1.6.0.1.</span> <span class="nav-text">登录界面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%83%E5%B1%801"><span class="nav-number">1.6.0.2.</span> <span class="nav-text">布局1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%83%E5%B1%802"><span class="nav-number">1.6.0.3.</span> <span class="nav-text">布局2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%83%E5%B1%803"><span class="nav-number">1.6.0.4.</span> <span class="nav-text">布局3</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E8%B7%AF%E7%94%B1%E5%AE%88%E5%8D%AB"><span class="nav-number">1.7.</span> <span class="nav-text">七、路由守卫</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#AngularGeneral"><span class="nav-number">1.</span> <span class="nav-text">AngularGeneral</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%A4%9A%E8%B7%AF%E7%94%B1"><span class="nav-number">1.1.</span> <span class="nav-text">一、多路由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%AE%9E%E7%8E%B0%E4%BA%86%E6%87%92%E5%8A%A0%E8%BD%BD"><span class="nav-number">1.2.</span> <span class="nav-text">二、实现了懒加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%9F%BA%E4%BA%8E%E4%B8%9A%E5%8A%A1%E5%8A%9F%E8%83%BD%E5%88%9B%E5%BB%BA%E6%A8%A1%E5%9D%97"><span class="nav-number">1.3.</span> <span class="nav-text">三、基于业务功能创建模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%A4%9A%E7%BA%A7%E8%B7%AF%E7%94%B1%E7%94%9F%E6%88%90"><span class="nav-number">1.4.</span> <span class="nav-text">四、多级路由生成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E5%90%88%E4%BD%9C%E5%BC%80%E5%8F%91%E5%A4%87%E6%B3%A8"><span class="nav-number">1.5.</span> <span class="nav-text">五、合作开发备注</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E8%B7%AF%E7%94%B1%E5%90%88%E5%B9%B6"><span class="nav-number">1.6.</span> <span class="nav-text">六、路由合并</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%99%BB%E5%BD%95%E7%95%8C%E9%9D%A2"><span class="nav-number">1.6.0.0.1.</span> <span class="nav-text">登录界面</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%B8%83%E5%B1%801"><span class="nav-number">1.6.0.0.2.</span> <span class="nav-text">布局1</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%B8%83%E5%B1%802"><span class="nav-number">1.6.0.0.3.</span> <span class="nav-text">布局2</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%B8%83%E5%B1%803"><span class="nav-number">1.6.0.0.4.</span> <span class="nav-text">布局3</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E8%B7%AF%E7%94%B1%E5%AE%88%E5%8D%AB"><span class="nav-number">1.7.</span> <span class="nav-text">七、路由守卫</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
