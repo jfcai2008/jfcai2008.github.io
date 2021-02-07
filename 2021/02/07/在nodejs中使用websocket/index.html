@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="软件环境：服务端：nodejs客户端：angular9">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在nodejs中使用websocket">
+<meta property="og:url" content="http://example.com/2021/02/07/%E5%9C%A8nodejs%E4%B8%AD%E4%BD%BF%E7%94%A8websocket/index.html">
+<meta property="og:site_name" content="JianFengCai Blog">
+<meta property="og:description" content="软件环境：服务端：nodejs客户端：angular9">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-02-07T08:50:03.000Z">
+<meta property="article:modified_time" content="2021-02-07T09:06:23.332Z">
+<meta property="article:author" content="CaiJianFeng">
+<meta property="article:tag" content="NodeJS">
+<meta property="article:tag" content="AngularJS">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/02/07/%E5%9C%A8nodejs%E4%B8%AD%E4%BD%BF%E7%94%A8websocket/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>在nodejs中使用websocket | JianFengCai Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">JianFengCai Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">IT老人</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-guestbook">
+
+    <a href="/guestbook/" rel="section"><i class="fa fa-book fa-fw"></i>guestbook</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/07/%E5%9C%A8nodejs%E4%B8%AD%E4%BD%BF%E7%94%A8websocket/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="CaiJianFeng">
+      <meta itemprop="description" content="给记忆留点空间">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JianFengCai Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          在nodejs中使用websocket
+        </h1>
+
+        <div class="post-meta">
+          
+            <i class="fa fa-thumb-tack"></i>
+            <font color=7D26CD>置顶</font>
+            <span class="post-meta-divider">|</span>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-02-07 16:50:03 / 修改时间：17:06:23" itemprop="dateCreated datePublished" datetime="2021-02-07T16:50:03+08:00">2021-02-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NodeJS/" itemprop="url" rel="index"><span itemprop="name">NodeJS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NodeJS/AngularJS/" itemprop="url" rel="index"><span itemprop="name">AngularJS</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2021/02/07/%E5%9C%A8nodejs%E4%B8%AD%E4%BD%BF%E7%94%A8websocket/" class="post-meta-item leancloud_visitors" data-flag-title="在nodejs中使用websocket" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/02/07/%E5%9C%A8nodejs%E4%B8%AD%E4%BD%BF%E7%94%A8websocket/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/02/07/%E5%9C%A8nodejs%E4%B8%AD%E4%BD%BF%E7%94%A8websocket/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>软件环境：<br>服务端：nodejs<br>客户端：angular9  </p>
+<a id="more"></a>
+<h4 id="服务端代码"><a href="#服务端代码" class="headerlink" title="服务端代码"></a>服务端代码</h4><h5 id="创建文件SockerUse-class-js"><a href="#创建文件SockerUse-class-js" class="headerlink" title="创建文件SockerUse.class.js"></a>创建文件SockerUse.class.js</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br></pre></td><td class="code"><pre><span class="line">const logger &#x3D; require(&quot;..&#x2F;helper&#x2F;LogHelper.class&quot;)</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * @description socket处理文件</span><br><span class="line"> * 使用方法：若需要使用websocker</span><br><span class="line"> * 则在应用中加入</span><br><span class="line">      if(useWebSocket) &#123;</span><br><span class="line">        const &#123;SocketUtil&#125; &#x3D; require(&quot;.&#x2F;SocketUse.class&quot;)</span><br><span class="line">        const socket &#x3D; new SocketUtil(server)</span><br><span class="line">        socket.connect()</span><br><span class="line">        let config &#x3D; require(&quot;..&#x2F;config&#x2F;soccer.config&quot;)</span><br><span class="line">        config.SocketTool.Instance &#x3D; socket.SocketTool</span><br><span class="line">        logger.info(&#96;start websoket on port:$&#123;this.port&#125;&#96;)</span><br><span class="line">    &#125;</span><br><span class="line"> 然后在SocketDispatcher中定义或处理消息即可。</span><br><span class="line"> *&#x2F;</span><br><span class="line">&#x2F;**</span><br><span class="line"> * @description 将消息发送到客户端</span><br><span class="line"> * @param dataInfo</span><br><span class="line"> * @constructor</span><br><span class="line"> *&#x2F;</span><br><span class="line">const SendData2Client &#x3D; function (dataInfo) &#123;</span><br><span class="line">    if (SOCKETS &amp;&amp; SOCKETS.length &gt; 0) &#123;</span><br><span class="line">        logger.info(&#96;共有$&#123;SOCKETS.length&#125;个客户端，需要推送数据。&#96;)</span><br><span class="line">        for (let i &#x3D; 0; i &lt; SOCKETS.length; i++) &#123;</span><br><span class="line">            SOCKETS[i].socket.emit(&#39;svcMsg&#39;, dataInfo)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">let SOCKETS &#x3D; []</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * @description socker.io的消息处理类</span><br><span class="line"> *&#x2F;</span><br><span class="line">class SocketDispatcher &#123;</span><br><span class="line">    constructor() &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * @description socket连接后处理</span><br><span class="line">     * @param socket</span><br><span class="line">     * @returns &#123;Promise&lt;void&gt;&#125;</span><br><span class="line">     *&#x2F;</span><br><span class="line">    async socketConnect(socket) &#123;</span><br><span class="line">        logger.info(&#39;------------USER CONNECTED--------------&#39;)</span><br><span class="line">        socket.emit(&#39;welcome&#39;, &#39;hello,welcome use this application&#39;)</span><br><span class="line">        socket.on(&#39;disconnect&#39;, function (data) &#123;</span><br><span class="line">            logger.info(&#96;用户：$&#123;socket.id&#125; 断开！&#96;)</span><br><span class="line">            let pos &#x3D; -1</span><br><span class="line">            for (let i &#x3D; 0; i &lt; SOCKETS.length; i++) &#123;</span><br><span class="line">                if (SOCKETS[i].socket.id &#x3D;&#x3D;&#x3D; socket.id) &#123;</span><br><span class="line">                    pos &#x3D; i</span><br><span class="line">                    break</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            if (pos !&#x3D;&#x3D; -1) &#123;</span><br><span class="line">                SOCKETS.splice(pos, 1)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">        socket.on(&#39;clientMsg&#39;, function (data) &#123;</span><br><span class="line">            logger.info(data)</span><br><span class="line">        &#125;)</span><br><span class="line">        socket.on(&#39;CurrentRoleID&#39;, function (data) &#123;</span><br><span class="line">            let currentRoleId &#x3D; data</span><br><span class="line">            let ss &#x3D; SOCKETS.filter(s &#x3D;&gt; &#123;</span><br><span class="line">                return s.socket.id &#x3D;&#x3D;&#x3D; socket.id</span><br><span class="line">            &#125;)</span><br><span class="line">            if (ss &amp;&amp; ss.length &gt; 0) &#123;</span><br><span class="line">                ss[0].currentRoleId &#x3D; data.roleId</span><br><span class="line">                ss[0].UserName &#x3D; data.userName</span><br><span class="line">                logger.info(&#96;当前用户信息:roleId&#x3D;$&#123;ss[0].currentRoleId&#125;,userName&#x3D;$&#123;ss[0].UserName&#125;,sid&#x3D;$&#123;ss[0].socket.id&#125;&#96;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">        SOCKETS.push(&#123;socket: socket, currentRoleId: -1, UserName: &#39;&#39;&#125;)</span><br><span class="line">        logger.warn(&#96;用户：$&#123;socket.id&#125; 上线！,当前人数：$&#123;SOCKETS.length&#125;&#96;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * @description socker消息发送</span><br><span class="line">     * @param dataInfo</span><br><span class="line">     * @constructor</span><br><span class="line">     *&#x2F;</span><br><span class="line">    SocketSend(dataInfo) &#123;</span><br><span class="line">        SendData2Client(dataInfo)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * @description socker.io对象类。用来启动socker服务。</span><br><span class="line"> *&#x2F;</span><br><span class="line">class SocketUtil &#123;</span><br><span class="line">    get SocketTool() &#123;</span><br><span class="line">        return this.sktool</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    constructor(server) &#123;</span><br><span class="line">        &#x2F;&#x2F; 接收定义好的 server</span><br><span class="line">        this.server &#x3D; server;</span><br><span class="line">        this.sktool &#x3D; new SocketDispatcher()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * @description 启动websocket服务侦听。定义连接响应对像</span><br><span class="line">     *&#x2F;</span><br><span class="line">    connect() &#123;</span><br><span class="line">        &#x2F;&#x2F; 引入socket.io模块,并创建io</span><br><span class="line">        logger.info(&#39;begin websocket listening....&#39;)</span><br><span class="line">        var io &#x3D; require(&#39;socket.io&#39;, &#123;origins: &#39;*:*&#39;&#125;).listen(this.server);</span><br><span class="line">        io.on(&#39;connection&#39;, this.sktool.socketConnect);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;在其它地方，可以如下使用：const &#123;SocketUtil&#125; &#x3D; require(&quot;.&#x2F;SocketUse.class&quot;)</span><br><span class="line">module.exports &#x3D; &#123;SocketUtil, SocketDispatcher&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h5 id="然后在web服务开始的地方，如index-js文件或app-js文件中"><a href="#然后在web服务开始的地方，如index-js文件或app-js文件中" class="headerlink" title="然后在web服务开始的地方，如index.js文件或app.js文件中"></a>然后在web服务开始的地方，如index.js文件或app.js文件中</h5><p>如server.listen(this.port)之后，加上如下的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const useWebSocket &#x3D; true</span><br><span class="line">if(useWebSocket) &#123;</span><br><span class="line">    const &#123;SocketUtil&#125; &#x3D; require(&quot;.&#x2F;SocketUse.class&quot;)</span><br><span class="line">    let config &#x3D; require(&quot;..&#x2F;config&#x2F;soccer.config&quot;)</span><br><span class="line">    const socket &#x3D; new SocketUtil(server)</span><br><span class="line">    socket.connect()</span><br><span class="line">    config.SocketTool.Instance &#x3D; socket.SocketTool</span><br><span class="line">    logger.info(&#96;start websoket on port:$&#123;this.port&#125;&#96;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h4><p>编写websocket.ts文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br></pre></td><td class="code"><pre><span class="line">import &#123; Injectable &#125; from &#39;@angular&#x2F;core&#39;;</span><br><span class="line">import &#123;interval, Subject,Observable&#125; from &#39;rxjs&#39;;</span><br><span class="line">&#x2F;&#x2F;import &#123; Observable &#125; from &#39;rxjs&#x2F;Observable&#39;;</span><br><span class="line">import * as io from &#39;socket.io-client&#39;;</span><br><span class="line"></span><br><span class="line">&#x2F;*</span><br><span class="line">使用socket.io-client，构建后在浏览器调试窗口中可发现异常：</span><br><span class="line">Global is not defined</span><br><span class="line">这时候可在polyfills.ts文件中加入：</span><br><span class="line">(window as any).global &#x3D; window</span><br><span class="line">即可。（任何位置都行）</span><br><span class="line">As already mentioned in comment, add the above code in the polyfills.ts file.</span><br><span class="line"> *&#x2F;</span><br><span class="line">@Injectable(&#123;</span><br><span class="line">  providedIn: &#39;root&#39;</span><br><span class="line">&#125;)</span><br><span class="line">export class WebsocketService &#123;</span><br><span class="line">	private url &#x3D; &#39;http:&#x2F;&#x2F;192.168.3.158:6002&#39;; </span><br><span class="line">	private socket;</span><br><span class="line">	public messageSubject;</span><br><span class="line">	private webSocket:any;</span><br><span class="line">  	connectSuccess &#x3D; false;                         &#x2F;&#x2F; websocket 连接成功</span><br><span class="line">  	period &#x3D; 60 * 1000 * 10;                        &#x2F;&#x2F; 10分钟检查一次</span><br><span class="line">	serverTimeoutSubscription &#x3D; null;               &#x2F;&#x2F; 定时检测连接对象</span><br><span class="line">  	reconnectFlag &#x3D; false;                          &#x2F;&#x2F; 重连</span><br><span class="line">  	reconnectPeriod &#x3D; 5 * 1000;                     &#x2F;&#x2F; 重连失败,则5秒钟重连一次</span><br><span class="line">  	reconnectSubscription &#x3D; null;                   &#x2F;&#x2F; 重连订阅对象</span><br><span class="line">  	runTimeSubscription;                            &#x2F;&#x2F; 记录运行连接subscription</span><br><span class="line">  	runTimePeriod &#x3D; 60 * 10000;                     &#x2F;&#x2F; 记录运行连接时间</span><br><span class="line"></span><br><span class="line">	constructor()&#123;</span><br><span class="line">		this.messageSubject &#x3D; new Subject();</span><br><span class="line">		console.log(&#96;【 WebsocketService 】 constructor.................&#96;)</span><br><span class="line"></span><br><span class="line">		this.connect(this.url)</span><br><span class="line">	&#125;</span><br><span class="line">	connect(url) &#123;</span><br><span class="line">	    if (!!url) &#123;</span><br><span class="line">	      this.url &#x3D; url;</span><br><span class="line">	    &#125;</span><br><span class="line">	    &#x2F;&#x2F; 创建websocket对象</span><br><span class="line">	    this.createWebSocket();</span><br><span class="line">	&#125;	</span><br><span class="line">	sendMessage(act,message)&#123;</span><br><span class="line">	  	this.webSocket.emit(act, message);  </span><br><span class="line">	&#125;</span><br><span class="line">	createWebSocket() &#123;</span><br><span class="line">		console.log(&#96;【 WebsocketService 】 start connect to &#x3D;&#x3D;&gt; $&#123;this.url&#125;&#96;)</span><br><span class="line">	    &#x2F;&#x2F; 如果没有建立过连接，才建立连接并且添加时间监听</span><br><span class="line">	    this.webSocket &#x3D; io(this.url); &#x2F;&#x2F; new WebSocket(this.url);</span><br><span class="line">	   	this.webSocket.on(&#39;welcome&#39;, (data) &#x3D;&gt; &#123;</span><br><span class="line">	    	this.onMessage(data)</span><br><span class="line">	   	&#125;);	   </span><br><span class="line">	   	this.webSocket.on(&#39;svcMsg&#39;, (data) &#x3D;&gt; &#123;</span><br><span class="line">	    	this.onSvcMsg(data)</span><br><span class="line">	   	&#125;);	  </span><br><span class="line">	    &#x2F;&#x2F; 建立连接成功</span><br><span class="line">	    &#x2F;&#x2F;this.webSocket.onopen &#x3D; (e) &#x3D;&gt; this.onOpen(e);</span><br><span class="line">	    &#x2F;&#x2F; 接收到消息</span><br><span class="line">	    this.webSocket.onmessage &#x3D; (e) &#x3D;&gt; this.onMessage(e);</span><br><span class="line">	    &#x2F;&#x2F; 连接关闭</span><br><span class="line">	    &#x2F;&#x2F;this.webSocket.onclose &#x3D; (e) &#x3D;&gt; this.onClose(e);</span><br><span class="line">	    &#x2F;&#x2F; 异常</span><br><span class="line">	    &#x2F;&#x2F;this.webSocket.onerror &#x3D; (e) &#x3D;&gt; this.onError(e);</span><br><span class="line">	&#125;	  </span><br><span class="line">	getMessages() &#123;</span><br><span class="line">	  	let observable &#x3D; new Observable(observer &#x3D;&gt; &#123;</span><br><span class="line">		   	this.socket &#x3D; io(this.url);</span><br><span class="line">		   	this.socket.on(&#39;welcome&#39;, (data) &#x3D;&gt; &#123;</span><br><span class="line">		    	observer.next(data);  </span><br><span class="line">		   	&#125;);</span><br><span class="line">		   	this.socket.on(&#39;svcMsg&#39;, (data) &#x3D;&gt; &#123;</span><br><span class="line">		    	observer.next(data);  </span><br><span class="line">		   	&#125;);</span><br><span class="line">		   	return () &#x3D;&gt; &#123;</span><br><span class="line">		    	this.socket.disconnect();</span><br><span class="line">		   	&#125;; </span><br><span class="line">	  	&#125;)   </span><br><span class="line">	  	return observable;</span><br><span class="line">	&#125; </span><br><span class="line">	getMessages2() &#123;</span><br><span class="line">	  	let observable &#x3D; new Observable(observer &#x3D;&gt; &#123;</span><br><span class="line">		   	this.socket &#x3D; io(this.url);</span><br><span class="line">		   	this.socket.on(&#39;welcome&#39;, (data) &#x3D;&gt; &#123;</span><br><span class="line">		    	observer.next(data);  </span><br><span class="line">		   	&#125;);</span><br><span class="line">		   	this.socket.on(&#39;svcMsg&#39;, (data) &#x3D;&gt; &#123;</span><br><span class="line">		    	observer.next(data);  </span><br><span class="line">		   	&#125;);</span><br><span class="line">		   	return () &#x3D;&gt; &#123;</span><br><span class="line">		    	this.socket.disconnect();</span><br><span class="line">		   	&#125;; </span><br><span class="line">	  	&#125;)   </span><br><span class="line">	  	return observable;</span><br><span class="line">	&#125; 	</span><br><span class="line">	onOpen(e) &#123;</span><br><span class="line">	    console.log(&#39;websocket 已连接&#39;);</span><br><span class="line">	    &#x2F;&#x2F; 设置连接成功</span><br><span class="line">	    this.connectSuccess &#x3D; true;</span><br><span class="line">	    &#x2F;&#x2F; 如果是重连中</span><br><span class="line">	    if (this.reconnectFlag) &#123;</span><br><span class="line">	      &#x2F;&#x2F; 1.停止重连</span><br><span class="line">	      this.stopReconnect();</span><br><span class="line">	      &#x2F;&#x2F; 2.重新开启心跳</span><br><span class="line">	      this.heartCheckStart();</span><br><span class="line">	      &#x2F;&#x2F; 3.重新开始计算运行时间</span><br><span class="line">	      this.calcRunTime();</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	onMessage(data) &#123;</span><br><span class="line">	    console.log(&#39;&#x3D;&#x3D;&#x3D;&#x3D;RCV:[WebsocketService]&#39;, data);</span><br><span class="line">	    &#x2F;&#x2F; 将接受到的消息发布出去</span><br><span class="line">	    &#x2F;&#x2F;const message &#x3D; JSON.parse(data);</span><br><span class="line">	    &#x2F;&#x2F;console.log(&#39;接收到消息时间&#39;, new Date().getTime());</span><br><span class="line">	    this.messageSubject.next(data);</span><br><span class="line">	&#125;</span><br><span class="line">	onSvcMsg(data) &#123;</span><br><span class="line">	    console.log(&#39;接收到的消息&#39;, data);</span><br><span class="line">	    &#x2F;&#x2F; 将接受到的消息发布出去</span><br><span class="line">	    &#x2F;&#x2F;const message &#x3D; JSON.parse(data);</span><br><span class="line">	    &#x2F;&#x2F;console.log(&#39;接收到消息时间&#39;, new Date().getTime());</span><br><span class="line">	    this.messageSubject.next(data);</span><br><span class="line">	&#125;	</span><br><span class="line">	private onClose(e) &#123;</span><br><span class="line">	    console.log(&#39;连接关闭&#39;, e);</span><br><span class="line">	    this.connectSuccess &#x3D; false;</span><br><span class="line">	    this.webSocket.close();</span><br><span class="line">	    &#x2F;&#x2F; 关闭时开始重连</span><br><span class="line">	    this.reconnect();</span><br><span class="line">	    this.stopRunTime();</span><br><span class="line">	    &#x2F;&#x2F; throw new Error(&#39;webSocket connection closed:)&#39;);</span><br><span class="line">	&#125;</span><br><span class="line">	private onError(e) &#123;</span><br><span class="line">	    &#x2F;&#x2F; 出现异常时一定会进onClose,所以只在onClose做一次重连动作</span><br><span class="line">	    console.log(&#39;连接异常&#39;, e);</span><br><span class="line">	    this.connectSuccess &#x3D; false;</span><br><span class="line">	    &#x2F;&#x2F; throw new Error(&#39;webSocket connection error:)&#39;);</span><br><span class="line">	&#125;	</span><br><span class="line"></span><br><span class="line">	reconnect() &#123;</span><br><span class="line">	    &#x2F;&#x2F; 如果已重连,则直接return,避免重复连接</span><br><span class="line">	    if (this.connectSuccess) &#123;</span><br><span class="line">	      this.stopReconnect();</span><br><span class="line">	      console.log(&#39;已经连接成功,停止重连&#39;);</span><br><span class="line">	      return;</span><br><span class="line">	    &#125;</span><br><span class="line">	    &#x2F;&#x2F; 如果正在连接中,则直接return,避免产生多个轮训事件</span><br><span class="line">	    if (this.reconnectFlag) &#123;</span><br><span class="line">	      console.log(&#39;正在重连,直接返回&#39;);</span><br><span class="line">	      return;</span><br><span class="line">	    &#125;</span><br><span class="line">	    &#x2F;&#x2F; 开始重连</span><br><span class="line">	    this.reconnectFlag &#x3D; true;</span><br><span class="line">	    &#x2F;&#x2F; 如果没能成功连接,则定时重连</span><br><span class="line">	    this.reconnectSubscription &#x3D; interval(this.reconnectPeriod).subscribe(async (val) &#x3D;&gt; &#123;</span><br><span class="line">	      console.log(&#96;重连:$&#123;val&#125;次&#96;);</span><br><span class="line">	      const url &#x3D; this.url;</span><br><span class="line">	      &#x2F;&#x2F; 重新连接</span><br><span class="line">	      this.connect(url);</span><br><span class="line">	    &#125;);</span><br><span class="line">	&#125;</span><br><span class="line">	stopReconnect() &#123;</span><br><span class="line">	    &#x2F;&#x2F; 连接标识置为false</span><br><span class="line">	    this.reconnectFlag &#x3D; false;</span><br><span class="line">	    &#x2F;&#x2F; 取消订阅</span><br><span class="line">	    if (typeof this.reconnectSubscription !&#x3D;&#x3D; &#39;undefined&#39; &amp;&amp; this.reconnectSubscription !&#x3D; null) &#123;</span><br><span class="line">	      this.reconnectSubscription.unsubscribe();</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	heartCheckStart() &#123;</span><br><span class="line">	    this.serverTimeoutSubscription &#x3D; interval(this.period).subscribe((val) &#x3D;&gt; &#123;</span><br><span class="line">	      &#x2F;&#x2F; 保持连接状态,重置下</span><br><span class="line">	      if (this.webSocket !&#x3D; null &amp;&amp; this.webSocket.readyState &#x3D;&#x3D;&#x3D; 1) &#123;</span><br><span class="line">	        console.log(val, &#39;连接状态，发送消息保持连接&#39;);</span><br><span class="line">	      &#125; else &#123;</span><br><span class="line">	        &#x2F;&#x2F; 停止心跳</span><br><span class="line">	        this.heartCheckStop();</span><br><span class="line">	        &#x2F;&#x2F; 开始重连</span><br><span class="line">	        this.reconnect();</span><br><span class="line">	        console.log(&#39;连接已断开,重新连接&#39;);</span><br><span class="line">	      &#125;</span><br><span class="line">	    &#125;);</span><br><span class="line">	  &#125;</span><br><span class="line">	heartCheckStop() &#123;</span><br><span class="line">	    &#x2F;&#x2F; 取消订阅停止心跳</span><br><span class="line">	    if (typeof this.serverTimeoutSubscription !&#x3D;&#x3D; &#39;undefined&#39; &amp;&amp; this.serverTimeoutSubscription !&#x3D; null) &#123;</span><br><span class="line">	      this.serverTimeoutSubscription.unsubscribe();</span><br><span class="line">	    &#125;</span><br><span class="line">	  &#125;</span><br><span class="line">  	calcRunTime() &#123;</span><br><span class="line">	    this.runTimeSubscription &#x3D; interval(this.runTimePeriod).subscribe(period &#x3D;&gt; &#123;</span><br><span class="line">	      console.log(&#39;运行时间&#39;, &#96;$&#123;period&#125;分钟&#96;);</span><br><span class="line">	    &#125;);</span><br><span class="line">	&#125;</span><br><span class="line">	stopRunTime() &#123;</span><br><span class="line">	    if (typeof this.runTimeSubscription !&#x3D;&#x3D; &#39;undefined&#39; &amp;&amp; this.runTimeSubscription !&#x3D;&#x3D; null) &#123;</span><br><span class="line">	      this.runTimeSubscription.unsubscribe();</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	&#x2F;*</span><br><span class="line">	messageSubject;                                 &#x2F;&#x2F; subject对象,用于发送事件</span><br><span class="line">  	private url;                                    &#x2F;&#x2F; 默认请求的url</span><br><span class="line">  	private webSocket: WebSocket;                   &#x2F;&#x2F; websocket对象</span><br><span class="line">  	connectSuccess &#x3D; false;                         &#x2F;&#x2F; websocket 连接成功</span><br><span class="line">  	period &#x3D; 60 * 1000 * 10;                        &#x2F;&#x2F; 10分钟检查一次</span><br><span class="line">	serverTimeoutSubscription &#x3D; null;               &#x2F;&#x2F; 定时检测连接对象</span><br><span class="line">  	reconnectFlag &#x3D; false;                          &#x2F;&#x2F; 重连</span><br><span class="line">  	reconnectPeriod &#x3D; 5 * 1000;                     &#x2F;&#x2F; 重连失败,则5秒钟重连一次</span><br><span class="line">  	reconnectSubscription &#x3D; null;                   &#x2F;&#x2F; 重连订阅对象</span><br><span class="line">  	runTimeSubscription;                            &#x2F;&#x2F; 记录运行连接subscription</span><br><span class="line">  	runTimePeriod &#x3D; 60 * 10000;                     &#x2F;&#x2F; 记录运行连接时间</span><br><span class="line"></span><br><span class="line">  	constructor() &#123; </span><br><span class="line">		this.messageSubject &#x3D; new Subject();</span><br><span class="line">	    console.log(&#39;开始心跳检测&#39;);</span><br><span class="line">	    &#x2F;&#x2F; 进入程序就进行心跳检测,避免出现开始就连接中断,后续不重连</span><br><span class="line">	    this.heartCheckStart();</span><br><span class="line">	    this.calcRunTime();</span><br><span class="line">  	&#125;</span><br><span class="line"></span><br><span class="line">  	sendMessage(message) &#123;</span><br><span class="line">	    this.webSocket.send(message);</span><br><span class="line">	&#125;</span><br><span class="line">	connect(url) &#123;</span><br><span class="line">	    if (!!url) &#123;</span><br><span class="line">	      this.url &#x3D; url;</span><br><span class="line">	    &#125;</span><br><span class="line">	    &#x2F;&#x2F; 创建websocket对象</span><br><span class="line">	    this.createWebSocket();</span><br><span class="line">	&#125;</span><br><span class="line">	createWebSocket() &#123;</span><br><span class="line">		console.log(&#96;connect to &#x3D;&#x3D;&gt; $&#123;this.url&#125;&#96;)</span><br><span class="line">	    &#x2F;&#x2F; 如果没有建立过连接，才建立连接并且添加时间监听</span><br><span class="line">	    this.webSocket &#x3D; new WebSocket(this.url);</span><br><span class="line">	    &#x2F;&#x2F; 建立连接成功</span><br><span class="line">	    this.webSocket.onopen &#x3D; (e) &#x3D;&gt; this.onOpen(e);</span><br><span class="line">	    &#x2F;&#x2F; 接收到消息</span><br><span class="line">	    this.webSocket.onmessage &#x3D; (e) &#x3D;&gt; this.onMessage(e);</span><br><span class="line">	    &#x2F;&#x2F; 连接关闭</span><br><span class="line">	    this.webSocket.onclose &#x3D; (e) &#x3D;&gt; this.onClose(e);</span><br><span class="line">	    &#x2F;&#x2F; 异常</span><br><span class="line">	    this.webSocket.onerror &#x3D; (e) &#x3D;&gt; this.onError(e);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	onOpen(e) &#123;</span><br><span class="line">	    console.log(&#39;websocket 已连接&#39;);</span><br><span class="line">	    &#x2F;&#x2F; 设置连接成功</span><br><span class="line">	    this.connectSuccess &#x3D; true;</span><br><span class="line">	    &#x2F;&#x2F; 如果是重连中</span><br><span class="line">	    if (this.reconnectFlag) &#123;</span><br><span class="line">	      &#x2F;&#x2F; 1.停止重连</span><br><span class="line">	      this.stopReconnect();</span><br><span class="line">	      &#x2F;&#x2F; 2.重新开启心跳</span><br><span class="line">	      this.heartCheckStart();</span><br><span class="line">	      &#x2F;&#x2F; 3.重新开始计算运行时间</span><br><span class="line">	      this.calcRunTime();</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	onMessage(event) &#123;</span><br><span class="line">	    console.log(&#39;接收到的消息&#39;, event.data);</span><br><span class="line">	    &#x2F;&#x2F; 将接受到的消息发布出去</span><br><span class="line">	    const message &#x3D; JSON.parse(event.data);</span><br><span class="line">	    console.log(&#39;接收到消息时间&#39;, new Date().getTime());</span><br><span class="line">	    this.messageSubject.next(message);</span><br><span class="line">	&#125;</span><br><span class="line">	private onClose(e) &#123;</span><br><span class="line">	    console.log(&#39;连接关闭&#39;, e);</span><br><span class="line">	    this.connectSuccess &#x3D; false;</span><br><span class="line">	    this.webSocket.close();</span><br><span class="line">	    &#x2F;&#x2F; 关闭时开始重连</span><br><span class="line">	    this.reconnect();</span><br><span class="line">	    this.stopRunTime();</span><br><span class="line">	    &#x2F;&#x2F; throw new Error(&#39;webSocket connection closed:)&#39;);</span><br><span class="line">	&#125;</span><br><span class="line">	private onError(e) &#123;</span><br><span class="line">	    &#x2F;&#x2F; 出现异常时一定会进onClose,所以只在onClose做一次重连动作</span><br><span class="line">	    console.log(&#39;连接异常&#39;, e);</span><br><span class="line">	    this.connectSuccess &#x3D; false;</span><br><span class="line">	    &#x2F;&#x2F; throw new Error(&#39;webSocket connection error:)&#39;);</span><br><span class="line">	&#125;	</span><br><span class="line">	reconnect() &#123;</span><br><span class="line">	    &#x2F;&#x2F; 如果已重连,则直接return,避免重复连接</span><br><span class="line">	    if (this.connectSuccess) &#123;</span><br><span class="line">	      this.stopReconnect();</span><br><span class="line">	      console.log(&#39;已经连接成功,停止重连&#39;);</span><br><span class="line">	      return;</span><br><span class="line">	    &#125;</span><br><span class="line">	    &#x2F;&#x2F; 如果正在连接中,则直接return,避免产生多个轮训事件</span><br><span class="line">	    if (this.reconnectFlag) &#123;</span><br><span class="line">	      console.log(&#39;正在重连,直接返回&#39;);</span><br><span class="line">	      return;</span><br><span class="line">	    &#125;</span><br><span class="line">	    &#x2F;&#x2F; 开始重连</span><br><span class="line">	    this.reconnectFlag &#x3D; true;</span><br><span class="line">	    &#x2F;&#x2F; 如果没能成功连接,则定时重连</span><br><span class="line">	    this.reconnectSubscription &#x3D; interval(this.reconnectPeriod).subscribe(async (val) &#x3D;&gt; &#123;</span><br><span class="line">	      console.log(&#96;重连:$&#123;val&#125;次&#96;);</span><br><span class="line">	      const url &#x3D; this.url;</span><br><span class="line">	      &#x2F;&#x2F; 重新连接</span><br><span class="line">	      this.connect(url);</span><br><span class="line">	    &#125;);</span><br><span class="line">	&#125;</span><br><span class="line">	stopReconnect() &#123;</span><br><span class="line">	    &#x2F;&#x2F; 连接标识置为false</span><br><span class="line">	    this.reconnectFlag &#x3D; false;</span><br><span class="line">	    &#x2F;&#x2F; 取消订阅</span><br><span class="line">	    if (typeof this.reconnectSubscription !&#x3D;&#x3D; &#39;undefined&#39; &amp;&amp; this.reconnectSubscription !&#x3D; null) &#123;</span><br><span class="line">	      this.reconnectSubscription.unsubscribe();</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	heartCheckStart() &#123;</span><br><span class="line">	    this.serverTimeoutSubscription &#x3D; interval(this.period).subscribe((val) &#x3D;&gt; &#123;</span><br><span class="line">	      &#x2F;&#x2F; 保持连接状态,重置下</span><br><span class="line">	      if (this.webSocket !&#x3D; null &amp;&amp; this.webSocket.readyState &#x3D;&#x3D;&#x3D; 1) &#123;</span><br><span class="line">	        console.log(val, &#39;连接状态，发送消息保持连接&#39;);</span><br><span class="line">	      &#125; else &#123;</span><br><span class="line">	        &#x2F;&#x2F; 停止心跳</span><br><span class="line">	        this.heartCheckStop();</span><br><span class="line">	        &#x2F;&#x2F; 开始重连</span><br><span class="line">	        this.reconnect();</span><br><span class="line">	        console.log(&#39;连接已断开,重新连接&#39;);</span><br><span class="line">	      &#125;</span><br><span class="line">	    &#125;);</span><br><span class="line">	  &#125;</span><br><span class="line">	heartCheckStop() &#123;</span><br><span class="line">	    &#x2F;&#x2F; 取消订阅停止心跳</span><br><span class="line">	    if (typeof this.serverTimeoutSubscription !&#x3D;&#x3D; &#39;undefined&#39; &amp;&amp; this.serverTimeoutSubscription !&#x3D; null) &#123;</span><br><span class="line">	      this.serverTimeoutSubscription.unsubscribe();</span><br><span class="line">	    &#125;</span><br><span class="line">	  &#125;</span><br><span class="line">  	calcRunTime() &#123;</span><br><span class="line">	    this.runTimeSubscription &#x3D; interval(this.runTimePeriod).subscribe(period &#x3D;&gt; &#123;</span><br><span class="line">	      console.log(&#39;运行时间&#39;, &#96;$&#123;period&#125;分钟&#96;);</span><br><span class="line">	    &#125;);</span><br><span class="line">	&#125;</span><br><span class="line">	stopRunTime() &#123;</span><br><span class="line">	    if (typeof this.runTimeSubscription !&#x3D;&#x3D; &#39;undefined&#39; &amp;&amp; this.runTimeSubscription !&#x3D;&#x3D; null) &#123;</span><br><span class="line">	      this.runTimeSubscription.unsubscribe();</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;*&#x2F;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>在需要使用websocket的页面中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">constructor(</span><br><span class="line">  	private webSocket:WebsocketService,</span><br><span class="line">  	public DSS: DataCenterService,</span><br><span class="line">  	private tools:AppToolsService,</span><br><span class="line">  	private ngZone: NgZone,private route: ActivatedRoute) &#123;</span><br><span class="line">  	&#125;</span><br><span class="line"></span><br><span class="line">ngOnInit(): void &#123;</span><br><span class="line">    let li &#x3D; &#123;roleId:1,userName:this.DSS.loginId&#125;</span><br><span class="line">    console.log(li)</span><br><span class="line">    this.webSocket.sendMessage(&#39;CurrentRoleID&#39;,li)  </span><br><span class="line">    &#x2F;&#x2F;订阅webSocket接收到的消息</span><br><span class="line">    this.webSocket.messageSubject.subscribe(</span><br><span class="line">        data &#x3D;&gt; &#123;</span><br><span class="line">            if (data.type) &#123;</span><br><span class="line">                this.TreatSvrMessage(data)</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                &#x2F;&#x2F; 其它信息，如欢迎等测试消息</span><br><span class="line">                console.log(&#96;&#x3D;&#x3D;&#x3D;&#x3D;RCV:[OrganizationListComponent]$&#123;data&#125;&#96;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        err &#x3D;&gt; &#123;console.log(err)&#125;,</span><br><span class="line">        () &#x3D;&gt; &#123;console.log(&#39;completed...&#39;)&#125;</span><br><span class="line">    );  </span><br><span class="line">&#125;</span><br><span class="line">TreatSvrMessage(svrDatas)&#123;</span><br><span class="line">    console.log(svrDatas)</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wx_reward.png" alt="CaiJianFeng 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay_reward.png" alt="CaiJianFeng 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/NodeJS/" rel="tag"># NodeJS</a>
+              <a href="/tags/AngularJS/" rel="tag"># AngularJS</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/02/05/%E5%9C%A8Nodejs%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%BE%AE%E6%9C%8D%E5%8A%A1Moleculer/" rel="prev" title="在Nodejs中使用微服务Moleculer">
+      <i class="fa fa-chevron-left"></i> 在Nodejs中使用微服务Moleculer
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%BB%A3%E7%A0%81"><span class="nav-number">1.</span> <span class="nav-text">服务端代码</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6SockerUse-class-js"><span class="nav-number">1.1.</span> <span class="nav-text">创建文件SockerUse.class.js</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%84%B6%E5%90%8E%E5%9C%A8web%E6%9C%8D%E5%8A%A1%E5%BC%80%E5%A7%8B%E7%9A%84%E5%9C%B0%E6%96%B9%EF%BC%8C%E5%A6%82index-js%E6%96%87%E4%BB%B6%E6%88%96app-js%E6%96%87%E4%BB%B6%E4%B8%AD"><span class="nav-number">1.2.</span> <span class="nav-text">然后在web服务开始的地方，如index.js文件或app.js文件中</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="nav-number">2.</span> <span class="nav-text">客户端</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="CaiJianFeng"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">CaiJianFeng</p>
+  <div class="site-description" itemprop="description">给记忆留点空间</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jfcai2008" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jfcai2008" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jianfengcai@139.com" title="E-Mail → mailto:jianfengcai@139.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CaiJianFeng</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : '7cO788xhvTe3ukJKyPvH2lIz-gzGzoHsz',
+      appKey     : 'G5dCP2mUbVavDE236Nkncn6u',
+      placeholder: "这里留言",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
