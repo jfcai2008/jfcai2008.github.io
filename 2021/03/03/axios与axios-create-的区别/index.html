@@ -20,20 +20,21 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="不断失败，不停尝试。">
+  <meta name="description" content="axios与axios.create()的区别参考链接：https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_37418556&#x2F;article&#x2F;details&#x2F;107506980axios.create()表示创建自定义配置的新axios对象。 为记忆准备芯片，随时装卸 1.常规用axios发送请求代码如下：12345axios(&amp;#123;	method:&#39;POST&#39;,	url:&amp;#">
 <meta property="og:type" content="article">
-<meta property="og:title" content="永不放弃">
-<meta property="og:url" content="http://example.com/2021/02/04/%E6%B0%B8%E4%B8%8D%E6%94%BE%E5%BC%83/index.html">
+<meta property="og:title" content="axios与axios.create()的区别">
+<meta property="og:url" content="http://example.com/2021/03/03/axios%E4%B8%8Eaxios-create-%E7%9A%84%E5%8C%BA%E5%88%AB/index.html">
 <meta property="og:site_name" content="JianFengCai Blog">
-<meta property="og:description" content="不断失败，不停尝试。">
+<meta property="og:description" content="axios与axios.create()的区别参考链接：https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_37418556&#x2F;article&#x2F;details&#x2F;107506980axios.create()表示创建自定义配置的新axios对象。 为记忆准备芯片，随时装卸 1.常规用axios发送请求代码如下：12345axios(&amp;#123;	method:&#39;POST&#39;,	url:&amp;#">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-02-04T00:29:51.000Z">
-<meta property="article:modified_time" content="2021-02-07T09:13:30.013Z">
+<meta property="article:published_time" content="2021-03-03T00:32:47.000Z">
+<meta property="article:modified_time" content="2021-03-03T00:50:10.991Z">
 <meta property="article:author" content="CaiJianFeng">
-<meta property="article:tag" content="杂谈">
+<meta property="article:tag" content="vue">
+<meta property="article:tag" content="axios">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2021/02/04/%E6%B0%B8%E4%B8%8D%E6%94%BE%E5%BC%83/">
+<link rel="canonical" href="http://example.com/2021/03/03/axios%E4%B8%8Eaxios-create-%E7%9A%84%E5%8C%BA%E5%88%AB/">
 
 
 <script id="page-configurations">
@@ -46,7 +47,7 @@
   };
 </script>
 
-  <title>永不放弃 | JianFengCai Blog</title>
+  <title>axios与axios.create()的区别 | JianFengCai Blog</title>
   
 
 
@@ -200,7 +201,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/04/%E6%B0%B8%E4%B8%8D%E6%94%BE%E5%BC%83/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/03/axios%E4%B8%8Eaxios-create-%E7%9A%84%E5%8C%BA%E5%88%AB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -213,42 +214,36 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          永不放弃
+          axios与axios.create()的区别
         </h1>
 
         <div class="post-meta">
-          
-            <i class="fa fa-thumb-tack"></i>
-            <font color=7D26CD>置顶</font>
-            <span class="post-meta-divider">|</span>
           
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2021-02-04 08:29:51" itemprop="dateCreated datePublished" datetime="2021-02-04T08:29:51+08:00">2021-02-04</time>
+              <time title="创建时间：2021-03-03 08:32:47 / 修改时间：08:50:10" itemprop="dateCreated datePublished" datetime="2021-03-03T08:32:47+08:00">2021-03-03</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-02-07 17:13:30" itemprop="dateModified" datetime="2021-02-07T17:13:30+08:00">2021-02-07</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9D%82%E8%B0%88/" itemprop="url" rel="index"><span itemprop="name">杂谈</span></a>
+                  <a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vue/axios/" itemprop="url" rel="index"><span itemprop="name">axios</span></a>
                 </span>
             </span>
 
           
-            <span id="/2021/02/04/%E6%B0%B8%E4%B8%8D%E6%94%BE%E5%BC%83/" class="post-meta-item leancloud_visitors" data-flag-title="永不放弃" title="阅读次数">
+            <span id="/2021/03/03/axios%E4%B8%8Eaxios-create-%E7%9A%84%E5%8C%BA%E5%88%AB/" class="post-meta-item leancloud_visitors" data-flag-title="axios与axios.create()的区别" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -270,8 +265,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2021/02/04/%E6%B0%B8%E4%B8%8D%E6%94%BE%E5%BC%83/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/02/04/%E6%B0%B8%E4%B8%8D%E6%94%BE%E5%BC%83/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/03/03/axios%E4%B8%8Eaxios-create-%E7%9A%84%E5%8C%BA%E5%88%AB/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/03/axios%E4%B8%8Eaxios-create-%E7%9A%84%E5%8C%BA%E5%88%AB/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -286,7 +281,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>不断失败，不停尝试。</p>
+        <h2 id="axios与axios-create-的区别"><a href="#axios与axios-create-的区别" class="headerlink" title="axios与axios.create()的区别"></a>axios与axios.create()的区别</h2><p>参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37418556/article/details/107506980">https://blog.csdn.net/qq_37418556/article/details/107506980</a><br>axios.create()表示创建自定义配置的新axios对象。</p>
+<p>为记忆准备芯片，随时装卸</p>
+<h3 id="1-常规用axios发送请求代码如下："><a href="#1-常规用axios发送请求代码如下：" class="headerlink" title="1.常规用axios发送请求代码如下："></a>1.常规用axios发送请求代码如下：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">axios(&#123;</span><br><span class="line">	method:&#39;POST&#39;,</span><br><span class="line">	url:&#39;http:&#x2F;&#x2F;localhost:8000&#x2F;login&#39;,</span><br><span class="line">	data</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="2-使用axios-create-创建一个新axios后发送请求代码如下："><a href="#2-使用axios-create-创建一个新axios后发送请求代码如下：" class="headerlink" title="2.使用axios.create()创建一个新axios后发送请求代码如下："></a>2.使用axios.create()创建一个新axios后发送请求代码如下：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">const requset &#x3D; axios.create(&#123;</span><br><span class="line">	&#x2F;&#x2F;基础路径</span><br><span class="line">    baseURL:&#39;http:&#x2F;&#x2F;localhost:8000&#x2F;&#39;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">requset(&#123;</span><br><span class="line">	method:&#39;POST&#39;,</span><br><span class="line">	url:&#39;&#x2F;login&#39;,</span><br><span class="line">	data</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>可见好处：<br>1.可以简化基础路径写法<br>2.当基础路径发生变化时方便修改，有利于维护  </p>
+<h3 id="3-常见用法"><a href="#3-常见用法" class="headerlink" title="3.常见用法"></a>3.常见用法</h3><h4 id="3-1-可选-创建文件-env-development"><a href="#3-1-可选-创建文件-env-development" class="headerlink" title="3.1 (可选)创建文件.env.development"></a>3.1 (可选)创建文件.env.development</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">VUE_APP_API_URL &#x3D; http:&#x2F;&#x2F;localhost:3000&#x2F;web&#x2F;api</span><br></pre></td></tr></table></figure>
+<h4 id="3-2-创建文件http-js"><a href="#3-2-创建文件http-js" class="headerlink" title="3.2 创建文件http.js"></a>3.2 创建文件http.js</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import axios from &#39;axios&#39;</span><br><span class="line"></span><br><span class="line">const http &#x3D; axios.create(&#123;</span><br><span class="line">  baseURL: process.env.VUE_APP_API_URL || &#39;&#x2F;web&#x2F;api&#39;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">export default http;</span><br></pre></td></tr></table></figure>
+<h4 id="3-3-然后在main-js文件中加入"><a href="#3-3-然后在main-js文件中加入" class="headerlink" title="3.3 然后在main.js文件中加入"></a>3.3 然后在main.js文件中加入</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import http from &#39;.&#x2F;http&#39;</span><br><span class="line">Vue.prototype.$http &#x3D; http</span><br></pre></td></tr></table></figure>
+<h4 id="3-4-在相应页中就可以使用如下代码"><a href="#3-4-在相应页中就可以使用如下代码" class="headerlink" title="3.4 在相应页中就可以使用如下代码"></a>3.4 在相应页中就可以使用如下代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const res &#x3D; await this.$http.get(&quot;&#x2F;archive&quot;);</span><br></pre></td></tr></table></figure>
+<p>来向服务器请求数据了。</p>
 
     </div>
 
@@ -316,7 +320,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E6%9D%82%E8%B0%88/" rel="tag"># 杂谈</a>
+              <a href="/tags/vue/" rel="tag"># vue</a>
+              <a href="/tags/axios/" rel="tag"># axios</a>
           </div>
 
         
@@ -325,12 +330,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/02/04/%E6%B3%A8%E5%AE%9A%E5%B9%B3%E7%A9%B7/" rel="prev" title="注定平穷">
-      <i class="fa fa-chevron-left"></i> 注定平穷
+    <a href="/2021/02/07/%E5%9C%A8nodejs%E4%B8%AD%E4%BD%BF%E7%94%A8websocket/" rel="prev" title="在nodejs中使用websocket">
+      <i class="fa fa-chevron-left"></i> 在nodejs中使用websocket
     </a></div>
       <div class="post-nav-item">
-    <a href="/2021/02/04/%E5%B0%8F%E5%BF%83%E8%81%8C%E9%80%94%E4%B9%8B%E5%B0%8F%E4%BA%BA%E5%BE%97%E6%84%8F%E4%B9%8B%E5%BF%98%E5%BD%A2/" rel="next" title="小心职途之小人得意之忘形">
-      小心职途之小人得意之忘形 <i class="fa fa-chevron-right"></i>
+    <a href="/2021/03/03/NodeJS%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="next" title="NodeJS中间件">
+      NodeJS中间件 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -391,6 +396,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#axios%E4%B8%8Eaxios-create-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.</span> <span class="nav-text">axios与axios.create()的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%B8%B8%E8%A7%84%E7%94%A8axios%E5%8F%91%E9%80%81%E8%AF%B7%E6%B1%82%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">1.常规用axios发送请求代码如下：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%BD%BF%E7%94%A8axios-create-%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%96%B0axios%E5%90%8E%E5%8F%91%E9%80%81%E8%AF%B7%E6%B1%82%E4%BB%A3%E7%A0%81%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="nav-number">1.2.</span> <span class="nav-text">2.使用axios.create()创建一个新axios后发送请求代码如下：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">3.常见用法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-%E5%8F%AF%E9%80%89-%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6-env-development"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 (可选)创建文件.env.development</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6http-js"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2 创建文件http.js</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-%E7%84%B6%E5%90%8E%E5%9C%A8main-js%E6%96%87%E4%BB%B6%E4%B8%AD%E5%8A%A0%E5%85%A5"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.3 然后在main.js文件中加入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-%E5%9C%A8%E7%9B%B8%E5%BA%94%E9%A1%B5%E4%B8%AD%E5%B0%B1%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8%E5%A6%82%E4%B8%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">1.3.4.</span> <span class="nav-text">3.4 在相应页中就可以使用如下代码</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

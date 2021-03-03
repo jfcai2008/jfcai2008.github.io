@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="乱炖阮一峰文章说：中间件（middleware），就是处理HTTP请求的函数，用来完成各种特定的任务，比如检查用户是否登录、分析数据、以及其他在需要最终将数据发送给用户之前完成的任务。 知乎https:&#x2F;&#x2F;www.zhihu.com&#x2F;question&#x2F;56044478中间件：express 中的中间件可以认为是能够处理请求和操作响应，并控制请求流转的单元，一般都是小函数，接收2个到4个不等的参数；">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NodeJS中间件">
+<meta property="og:url" content="http://example.com/2021/03/03/NodeJS%E4%B8%AD%E9%97%B4%E4%BB%B6/index.html">
+<meta property="og:site_name" content="JianFengCai Blog">
+<meta property="og:description" content="乱炖阮一峰文章说：中间件（middleware），就是处理HTTP请求的函数，用来完成各种特定的任务，比如检查用户是否登录、分析数据、以及其他在需要最终将数据发送给用户之前完成的任务。 知乎https:&#x2F;&#x2F;www.zhihu.com&#x2F;question&#x2F;56044478中间件：express 中的中间件可以认为是能够处理请求和操作响应，并控制请求流转的单元，一般都是小函数，接收2个到4个不等的参数；">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-03-03T00:55:19.000Z">
+<meta property="article:modified_time" content="2021-03-03T02:05:15.957Z">
+<meta property="article:author" content="CaiJianFeng">
+<meta property="article:tag" content="NodeJS">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/03/03/NodeJS%E4%B8%AD%E9%97%B4%E4%BB%B6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>NodeJS中间件 | JianFengCai Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">JianFengCai Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">IT老人</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-guestbook">
+
+    <a href="/guestbook/" rel="section"><i class="fa fa-book fa-fw"></i>guestbook</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/03/NodeJS%E4%B8%AD%E9%97%B4%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="CaiJianFeng">
+      <meta itemprop="description" content="给记忆留点空间">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JianFengCai Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          NodeJS中间件
+        </h1>
+
+        <div class="post-meta">
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-03-03 08:55:19 / 修改时间：10:05:15" itemprop="dateCreated datePublished" datetime="2021-03-03T08:55:19+08:00">2021-03-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NodeJS/" itemprop="url" rel="index"><span itemprop="name">NodeJS</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2021/03/03/NodeJS%E4%B8%AD%E9%97%B4%E4%BB%B6/" class="post-meta-item leancloud_visitors" data-flag-title="NodeJS中间件" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/03/03/NodeJS%E4%B8%AD%E9%97%B4%E4%BB%B6/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/03/NodeJS%E4%B8%AD%E9%97%B4%E4%BB%B6/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="乱炖"><a href="#乱炖" class="headerlink" title="乱炖"></a>乱炖</h2><p>阮一峰文章说：<br>中间件（middleware），就是处理HTTP请求的函数，用来完成各种特定的任务，比如检查用户是否登录、分析数据、以及其他在需要最终将数据发送给用户之前完成的任务。</p>
+<p>知乎<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/56044478">https://www.zhihu.com/question/56044478</a><br>中间件：express 中的中间件可以认为是能够处理请求和操作响应，并控制请求流转的单元，一般都是小函数，接收2个到4个不等的参数；app.use 支持的中间件参数有好几种，比如你可以传入多个中间件，传入一个中间件数组，或者混合前两种。</p>
+<p>app.use()是调用中间件的方法。<br>app.use()里面使用的参数，主要是函数。但这个使用，并不是函数调用，而是使能的意思。当用户在浏览器发出请求的时候，这部分函数才会启用，进行过滤、处理。  </p>
+<p>app.use的调用方式，除了app.use(匿名函数或函数名)，也可以是app.use(“/“,匿名函数或函数名)。</p>
+<p>概括下，就是把特定的中间件加载到特定的请求路径下面。<br>在path路径上安装中间件，每当请求的路径的基路径和该path匹配时，都会导致该中间件函数被执行。例如，默认路径’/’，即当中间件没有设置安装路径时，任何向该应用的请求都会触发该中间件函数。<br>中间件函数是按顺序执行的，因此中间件的顺序也很重要。  </p>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>摘自博文：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/lidgblogs/p/11505731.html">https://www.cnblogs.com/lidgblogs/p/11505731.html</a>  </p>
+<h4 id="a-创建中间件auth-js"><a href="#a-创建中间件auth-js" class="headerlink" title="a.创建中间件auth.js"></a>a.创建中间件auth.js</h4><p>用来进行登录验证</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">module.exports &#x3D; options &#x3D;&gt; &#123;</span><br><span class="line">  const jwt &#x3D; require(&#39;jsonwebtoken&#39;)</span><br><span class="line">  const User &#x3D; require(&#39;..&#x2F;models&#x2F;User&#39;)</span><br><span class="line"></span><br><span class="line">  return async (req, res, next) &#x3D;&gt; &#123;</span><br><span class="line">    const token &#x3D; String(req.headers.authorization || &#39;&#39;).split(&quot; &quot;).pop()</span><br><span class="line">    if (!token) &#123;</span><br><span class="line">      res.status(401).send(&#123;</span><br><span class="line">        message: &#39;token不存在&#39;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    try &#123;</span><br><span class="line">      const &#123;id&#125; &#x3D; jwt.verify(token, req.app.get(&#39;secret&#39;))</span><br><span class="line">      if (!id) &#123;</span><br><span class="line">        res.status(401).send(&#123;</span><br><span class="line">          message: &#39;token错误&#39;</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      const user &#x3D; await User.findById(id)</span><br><span class="line">      if (!user) &#123;</span><br><span class="line">        res.status(401).send(&#123;</span><br><span class="line">          message: &#39;token错误, 用户不存在&#39; </span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;  </span><br><span class="line">    &#125; catch (e) &#123;</span><br><span class="line">      res.status(401).send(&#123;</span><br><span class="line">        message: &#39;jwt token error&#39;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    next()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="b-创建中间件resource-js"><a href="#b-创建中间件resource-js" class="headerlink" title="b.创建中间件resource.js"></a>b.创建中间件resource.js</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">module.exports &#x3D; options &#x3D;&gt; &#123;</span><br><span class="line">  return async (req, res, next) &#x3D;&gt; &#123;</span><br><span class="line">    const inflection &#x3D; require(&#39;inflection&#39;)</span><br><span class="line">    const modelName &#x3D; inflection.classify(req.params.resource)</span><br><span class="line">    req.Model &#x3D; require(&#96;..&#x2F;models&#x2F;$&#123;modelName&#125;&#96;)</span><br><span class="line">  </span><br><span class="line">    next()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>why?<br>原博文提到，后端admin主要包括三大模块：分类管理、文章管理、用户管理。</p>
+<p>每一个模块都会涉及增删改查操作。如果我们为每一个模块都定义一套自己的增删改查接口，势必会产生很多重复代码，而且如果是分类比较多的情况，重复代码会更加严重。所以这里可以考虑自定义一个中间件。</p>
+<h3 id="c-创建admin-route-js并使用中间件"><a href="#c-创建admin-route-js并使用中间件" class="headerlink" title="c.创建admin.route.js并使用中间件"></a>c.创建admin.route.js并使用中间件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">module.exports &#x3D; app &#x3D;&gt; &#123;</span><br><span class="line">  const express &#x3D; require(&#39;express&#39;)</span><br><span class="line">  const router &#x3D; express.Router()</span><br><span class="line">  ...</span><br><span class="line">  const resourceMiddleware &#x3D; require(&#39;..&#x2F;..&#x2F;middleware&#x2F;resource&#39;)</span><br><span class="line">  const authMiddleware &#x3D; require(&#39;..&#x2F;..&#x2F;middleware&#x2F;auth&#39;)</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 获取资源</span><br><span class="line">  router.get(&#39;&#x2F;&#39;, async (req, res) &#x3D;&gt; &#123;</span><br><span class="line">    const data &#x3D; await req.Model.find()</span><br><span class="line">    res.send(data)</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 获取资源详情</span><br><span class="line">  router.get(&#39;&#x2F;:id&#39;, async (req, res) &#x3D;&gt; &#123;</span><br><span class="line">    const data &#x3D; await req.Model.findById(req.params.id)</span><br><span class="line">    res.send(data)</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 删除资源</span><br><span class="line">  router.delete(&#39;&#x2F;:id&#39;, async (req, res) &#x3D;&gt; &#123;</span><br><span class="line">    const data &#x3D; await req.Model.findByIdAndDelete(req.params.id)</span><br><span class="line">    res.send(&#123;</span><br><span class="line">      status: 0,</span><br><span class="line">      message: &#39;删除成功&#39;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 创建资源</span><br><span class="line">  router.post(&#39;&#x2F;&#39;, async (req, res) &#x3D;&gt; &#123;</span><br><span class="line">    const data &#x3D; await req.Model.create(req.body)</span><br><span class="line">    res.send(&#123;</span><br><span class="line">      status: 0,</span><br><span class="line">      message: &quot;保存成功&quot;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 更新资源</span><br><span class="line">  router.put(&#39;&#x2F;:id&#39;, async (req, res) &#x3D;&gt; &#123;</span><br><span class="line">    const data &#x3D; await req.Model.findByIdAndUpdate(req.params.id, req.body)</span><br><span class="line">    res.send(&#123;</span><br><span class="line">      status: 0,</span><br><span class="line">      message: &quot;保存成功&quot;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  app.use(&#39;&#x2F;admin&#x2F;api&#x2F;rest&#x2F;:resource&#39;, authMiddleware(), resourceMiddleware(), router)</span><br><span class="line">  ...</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="重点"><a href="#重点" class="headerlink" title="重点"></a>重点</h4><p>a.<strong>注意这里导出的是一个函数，这样做有个好处就是可以传递参数进来，这里我们传入了app作为参数。</strong></p>
+<p>b.在应用启动的index.js文件中加入如下代码即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">require(&#39;.&#x2F;routers&#x2F;admin.route&#39;)(app) &#x2F;&#x2F; 直接执行函数并传入app作为参数</span><br></pre></td></tr></table></figure>
+<p>c.在route文件中将获得/admin/api/rest/这样的请求时，将顺序执行authMiddleware，resourceMiddleware，router三个中间件，完成授权认证，资源处理和数据返回。</p>
+<h2 id="d-当在浏览器中输入-“http-localhost-3000-admin-api-rest-categories-quot-即可得到categories表的数据。"><a href="#d-当在浏览器中输入-“http-localhost-3000-admin-api-rest-categories-quot-即可得到categories表的数据。" class="headerlink" title="d.当在浏览器中输入 “http://localhost:3000/admin/api/rest/categories&quot; 即可得到categories表的数据。  "></a>d.当在浏览器中输入 “<a target="_blank" rel="noopener" href="http://localhost:3000/admin/api/rest/categories&quot;">http://localhost:3000/admin/api/rest/categories&quot;</a> 即可得到categories表的数据。  </h2><p><font size="1"><em>（其中的categories即是请求路径中的resource参数，即req.params.resource,详见中间件使用）</em></font></p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wx_reward.png" alt="CaiJianFeng 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay_reward.png" alt="CaiJianFeng 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/NodeJS/" rel="tag"># NodeJS</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/03/03/axios%E4%B8%8Eaxios-create-%E7%9A%84%E5%8C%BA%E5%88%AB/" rel="prev" title="axios与axios.create()的区别">
+      <i class="fa fa-chevron-left"></i> axios与axios.create()的区别
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%B1%E7%82%96"><span class="nav-number">1.</span> <span class="nav-text">乱炖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-number">2.</span> <span class="nav-text">示例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#a-%E5%88%9B%E5%BB%BA%E4%B8%AD%E9%97%B4%E4%BB%B6auth-js"><span class="nav-number">2.0.1.</span> <span class="nav-text">a.创建中间件auth.js</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-%E5%88%9B%E5%BB%BA%E4%B8%AD%E9%97%B4%E4%BB%B6resource-js"><span class="nav-number">2.1.</span> <span class="nav-text">b.创建中间件resource.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c-%E5%88%9B%E5%BB%BAadmin-route-js%E5%B9%B6%E4%BD%BF%E7%94%A8%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="nav-number">2.2.</span> <span class="nav-text">c.创建admin.route.js并使用中间件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E7%82%B9"><span class="nav-number">2.2.1.</span> <span class="nav-text">重点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#d-%E5%BD%93%E5%9C%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%AD%E8%BE%93%E5%85%A5-%E2%80%9Chttp-localhost-3000-admin-api-rest-categories-quot-%E5%8D%B3%E5%8F%AF%E5%BE%97%E5%88%B0categories%E8%A1%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E3%80%82"><span class="nav-number">3.</span> <span class="nav-text">d.当在浏览器中输入 “http:&#x2F;&#x2F;localhost:3000&#x2F;admin&#x2F;api&#x2F;rest&#x2F;categories&quot; 即可得到categories表的数据。  </span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="CaiJianFeng"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">CaiJianFeng</p>
+  <div class="site-description" itemprop="description">给记忆留点空间</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jfcai2008" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jfcai2008" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jianfengcai@139.com" title="E-Mail → mailto:jianfengcai@139.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CaiJianFeng</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : '7cO788xhvTe3ukJKyPvH2lIz-gzGzoHsz',
+      appKey     : 'G5dCP2mUbVavDE236Nkncn6u',
+      placeholder: "这里留言",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
